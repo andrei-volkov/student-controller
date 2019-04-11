@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
+<?import java.lang.String?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="anrix.controller.MainController"
+            prefHeight="500.0" prefWidth="700.0">
+    <top>
+        <VBox>
+
+            <MenuBar>
+                <Menu fx:id="fileMenu" text="File">
+                    <MenuItem text="New" onAction="#fileMenuItemClicked"/>
+                    <SeparatorMenuItem onAction="#fileMenuItemClicked"/>
+                    <MenuItem text="Open" onAction="#fileMenuItemClicked"/>
+                    <MenuItem text="Save" onAction="#fileMenuItemClicked"/>
+                    <MenuItem text="Save as..." onAction="#fileMenuItemClicked"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Exit" onAction="#fileMenuItemClicked"/>
+                </Menu>
+
+                <Menu fx:id="optionsMenu" text="Options">
+                    <MenuItem text="In develop"/>
+                </Menu>
+            </MenuBar>
+
+
+        </VBox>
+    </top>
+
+    <left>
+        <TreeView fx:id="groupsTree" prefWidth="150">
+            <TreeItem value="text1"/>
+            <TreeItem value="text2"/>
+            <TreeItem value="text3"/>
+            <TreeItem value="text4"/>
+            <TreeItem value="text5"/>
+        </TreeView>
+        </left>
+
+    <center>
+        <VBox>
+            <AnchorPane >
+                <children>
+                    <Button AnchorPane.rightAnchor="5"
+                            AnchorPane.topAnchor="5"
+                            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
+                        <graphic>
+                            <ImageView  pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/edit_button.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button AnchorPane.rightAnchor="47"
+                            AnchorPane.topAnchor="5"
+                            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
+                        <graphic>
+                            <ImageView  pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/edit_button.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button AnchorPane.rightAnchor="89"
+                            AnchorPane.topAnchor="5"
+                            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
+                        <graphic>
+                            <ImageView  pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/edit_button.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </children>
+            </AnchorPane>
+
+            <TabPane fx:id="tabPane">
+                <Tab text="All students">
+                    <ListView fx:id="studentsList" >
+
+                    </ListView>
+                </Tab>
+
+                <Tab text="753503"/>
+            </TabPane>
+        </VBox>
+    </center>
+</BorderPane>

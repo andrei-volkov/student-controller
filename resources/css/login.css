@@ -1,0 +1,8 @@
+.submit_button {
+    -fx-background-color: darkslateblue;
+    -fx-text-fill: white;
+}
+
+.label {
+    -fx-font: normal bold 20px 'serif'
+}
