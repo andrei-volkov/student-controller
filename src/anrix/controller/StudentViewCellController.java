@@ -1,15 +1,15 @@
-package anrix.view;
+package anrix.controller;
 
 import anrix.model.Student;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
-public class StudentViewCell extends ListCell<Student> {
+public class StudentViewCellController extends ListCell<Student> {
     @FXML
     private Label name;
 
@@ -23,7 +23,7 @@ public class StudentViewCell extends ListCell<Student> {
     private  Label group;
 
     @FXML
-    private GridPane gridPane;
+    private HBox gridPane;
 
     @Override
     protected void updateItem(Student student, boolean empty) {
@@ -39,10 +39,10 @@ public class StudentViewCell extends ListCell<Student> {
         } else {
 
             if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/views/StudentViewCellPage.fxml"));
+                mLLoader = new FXMLLoader(getClass().getResource("/views/StudentViewCell.fxml"));
                 mLLoader.setController(this);
 
-                gridPane = mLLoader.getRoot();
+//                gridPane = mLLoader.getRoot();
 
                 try {
                     mLLoader.load();
@@ -52,11 +52,10 @@ public class StudentViewCell extends ListCell<Student> {
 
             }
 
-            System.out.println(name);
             name.setText(student.name);
             surname.setText(student.surname);
-            group.setText("adsad");
-            cource.setText("1");
+            group.setText("Group: " + "adsad");
+            cource.setText("Course:" + "1");
 
             setText(null);
             setGraphic(gridPane);

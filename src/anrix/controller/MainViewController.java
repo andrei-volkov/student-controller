@@ -2,9 +2,7 @@ package anrix.controller;
 
 import anrix.dao.FacultyService;
 import anrix.model.Faculty;
-import anrix.model.Group;
 import anrix.model.Student;
-import anrix.view.StudentViewCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
-public class MainController  {
+public class MainViewController {
 
     @FXML
     private javafx.scene.control.Menu fileMenu;
@@ -45,7 +43,7 @@ public class MainController  {
         studentsList.setCellFactory(new Callback<ListView<Student>, ListCell<Student>>() {
             @Override
             public ListCell<Student> call(ListView<Student> studentListView) {
-                return new StudentViewCell();
+                return new StudentViewCellController();
             }
         });
 
@@ -112,13 +110,13 @@ public class MainController  {
                                     .getSelectedItems());
 
 
-        System.out.println("----------------");
+  //      System.out.println("----------------");
         for (Student a : items) {
-            System.out.println(a);
+   //         System.out.println(a);
             Students.remove(a);
         }
-        System.out.println("List:");
-        Students.forEach(e -> System.out.println(e));
-        System.out.println("End");
+  //      System.out.println("List:");
+    //    Students.forEach(e -> System.out.println(e));
+  //      System.out.println("End");
     }
 }

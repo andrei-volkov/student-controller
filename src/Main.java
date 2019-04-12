@@ -19,11 +19,8 @@ public class Main extends Application {
 
         Student student = new Student("asd", "asd", 2d);
         Student student2 = new Student("asd", "asd", 2d);
-        System.out.println(student == student2);
-        System.out.println(student.equals(student2));
 
-
-        BorderPane a = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+        BorderPane a = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
        // a.getLeft()
 
         Scene scene = new Scene(a);
