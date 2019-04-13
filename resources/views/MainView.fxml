@@ -4,6 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import com.jfoenix.controls.JFXTextField?>
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="anrix.controller.MainViewController"
@@ -32,65 +33,50 @@
     </top>
 
     <left>
-        <TreeView fx:id="groupsTree" prefWidth="150">
-            <TreeItem value="text1"/>
-            <TreeItem value="text2"/>
-            <TreeItem value="text3"/>
-            <TreeItem value="text4"/>
-            <TreeItem value="text5"/>
-        </TreeView>
-        </left>
+        <TreeView fx:id="groupsTree"
+                  prefWidth="180"/>
+    </left>
 
     <center>
         <VBox>
-            <AnchorPane >
-                <children>
-                    <JFXTextField AnchorPane.leftAnchor="5"
-                                  AnchorPane.topAnchor="5"
-                                  AnchorPane.bottomAnchor="5"
-                                  promptText="Search" fx:id="fieldSearch"/>
+            <AnchorPane>
+                <JFXTextField AnchorPane.leftAnchor="5"
+                              AnchorPane.topAnchor="5"
+                              AnchorPane.bottomAnchor="5"
+                              promptText="Search" fx:id="fieldSearch"/>
 
-                    <Button AnchorPane.rightAnchor="5"
-                            AnchorPane.topAnchor="5"
-                            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
-                        <graphic>
-                            <ImageView  pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../images/trash_icon.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <Button AnchorPane.rightAnchor="47"
-                            AnchorPane.topAnchor="5"
-                            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
-                        <graphic>
-                            <ImageView  pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../images/new_student_icon.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                    <Button AnchorPane.rightAnchor="89"
-                            AnchorPane.topAnchor="5"
-                            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
-                        <graphic>
-                            <ImageView  pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../images/edit_button.png" />
-                                </image>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                </children>
+                <Button AnchorPane.rightAnchor="5"
+                        AnchorPane.topAnchor="5"
+                        AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
+                    <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../images/trash_icon.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button AnchorPane.rightAnchor="47"
+                        AnchorPane.topAnchor="5"
+                        AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
+                    <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../images/new_student_icon.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button AnchorPane.rightAnchor="89"
+                        AnchorPane.topAnchor="5"
+                        AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
+                    <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../images/edit_button.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </AnchorPane>
 
             <TabPane fx:id="tabPane">
-                <Tab text="All students">
-                    <ListView fx:id="studentsList">
-
-                    </ListView>
+                <Tab text="All students" closable="false">
+                    <ListView fx:id="studentsList"/>
                 </Tab>
                 <Tab text="753503"/>
             </TabPane>

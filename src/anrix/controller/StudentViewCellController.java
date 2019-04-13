@@ -38,24 +38,19 @@ public class StudentViewCellController extends ListCell<Student> {
 
         } else {
 
-            if (mLLoader == null) {
-                mLLoader = new FXMLLoader(getClass().getResource("/views/StudentViewCell.fxml"));
-                mLLoader.setController(this);
+            mLLoader = new FXMLLoader(getClass().getResource("/views/StudentViewCell.fxml"));
+            mLLoader.setController(this);
 
-//                gridPane = mLLoader.getRoot();
-
-                try {
-                    mLLoader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+            try {
+                mLLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
             name.setText(student.name);
             surname.setText(student.surname);
             group.setText("Group: " + "adsad");
-            cource.setText("Course:" + "1");
+            cource.setText("Course: " + "1");
 
             setText(null);
             setGraphic(gridPane);

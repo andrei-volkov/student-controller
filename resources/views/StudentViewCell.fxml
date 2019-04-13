@@ -2,38 +2,26 @@
 
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.GridPane?>
-
-
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Separator?>
-<!--<GridPane xmlns="http://javafx.com/javafx"-->
-<!--          xmlns:fx="http://javafx.com/fxml"-->
-<!--        -->
-<!--          prefHeight="50">-->
-<?import javafx.scene.layout.Region?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
 <HBox
-        xmlns="http://javafx.com/javafx"
-        xmlns:fx="http://javafx.com/fxml"
-        fx:id="gridPane">
+    xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:id="gridPane">
 
-        <ImageView cache="true" fitHeight="50" fitWidth="50"  pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image  url="@../images/edit_button.png" />
-            </image>
-        </ImageView>
-        <Region HBox.hgrow="ALWAYS"/>
-        <VBox>
-            <Label fx:id="name"/>
-            <Label fx:id="surname"/>
-        </VBox>
+    <ImageView cache="true" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/edit_button.png"/>
+    </ImageView>
+    <Region HBox.hgrow="ALWAYS"/>
+    <VBox>
+        <Label fx:id="name"/>
+        <Label fx:id="surname"/>
+    </VBox>
 
-        <Region HBox.hgrow="ALWAYS"/>
-        <Label fx:id="cource" minHeight="50" alignment="CENTER_RIGHT"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Label fx:id="group" minHeight="50" alignment="CENTER_RIGHT"/>
-    </HBox>
-<!--</GridPane>-->
+    <Region HBox.hgrow="ALWAYS"/>
+    <Label fx:id="cource" minHeight="50" alignment="CENTER_RIGHT"/>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Label fx:id="group" minHeight="50" alignment="CENTER_RIGHT"/>
+</HBox>
