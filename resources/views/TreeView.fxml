@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.TreeView?>
+<TreeView fx:id="groupsTree"
+          prefWidth="180"
+          xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="anrix.controller.TreeViewController">
+
+</TreeView>
