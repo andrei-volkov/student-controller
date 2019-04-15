@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -11,26 +9,7 @@
             fx:controller="anrix.controller.MainViewController"
             prefHeight="500.0" prefWidth="700.0">
     <top>
-        <VBox>
-
-            <MenuBar>
-                <Menu fx:id="fileMenu" text="File">
-                    <MenuItem text="New" onAction="#fileMenuItemClicked"/>
-                    <SeparatorMenuItem onAction="#fileMenuItemClicked"/>
-                    <MenuItem text="Open" onAction="#fileMenuItemClicked"/>
-                    <MenuItem text="Save" onAction="#fileMenuItemClicked"/>
-                    <MenuItem text="Save as..." onAction="#fileMenuItemClicked"/>
-                    <SeparatorMenuItem/>
-                    <MenuItem text="Exit" onAction="#fileMenuItemClicked"/>
-                </Menu>
-
-                <Menu fx:id="optionsMenu" text="Options">
-                    <MenuItem text="In develop"/>
-                </Menu>
-            </MenuBar>
-
-
-        </VBox>
+        <fx:include fx:id="menuBar" source="MenuBarView.fxml"/>
     </top>
 
     <left>
@@ -39,42 +18,9 @@
 
     <center>
         <VBox>
-            <AnchorPane>
-                <JFXTextField AnchorPane.leftAnchor="5"
-                              AnchorPane.topAnchor="5"
-                              AnchorPane.bottomAnchor="5"
-                              promptText="Search" fx:id="fieldSearch"/>
-
-                <Button AnchorPane.rightAnchor="5"
-                        AnchorPane.topAnchor="5"
-                        AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#removeButtonClicked">
-                    <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../images/trash_icon.png"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button AnchorPane.rightAnchor="47"
-                        AnchorPane.topAnchor="5"
-                        AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
-                    <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../images/new_student_icon.png"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <Button AnchorPane.rightAnchor="89"
-                        AnchorPane.topAnchor="5"
-                        AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#removeButtonClicked">
-                    <graphic>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../images/edit_button.png"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </AnchorPane>
-
+            <fx:include fx:id="toolBar" source="ToolBarView.fxml"/>
             <fx:include fx:id="tabPane" source="TabPaneView.fxml"/>
         </VBox>
     </center>
+
 </BorderPane>

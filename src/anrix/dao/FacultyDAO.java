@@ -3,15 +3,18 @@ package anrix.dao;
 import anrix.model.Faculty;
 import anrix.model.Group;
 import anrix.model.Student;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
 public interface FacultyDAO {
-    List<Faculty> getFaculties();
-    void setFaculties(List<Faculty> faculties);
+    ObservableList<Faculty> getFaculties();
+    void setFaculties(ObservableList<Faculty> faculties);
 
-    boolean remove(Student student);
-    boolean remove(Group group);
-    boolean remove(Faculty faculty);
+    ObservableList<Student> toStudentList();
+
+    void remove(Student student);
+    void remove(Group group);
+    void remove(Faculty faculty);
 
 }

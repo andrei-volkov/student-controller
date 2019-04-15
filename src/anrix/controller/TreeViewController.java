@@ -59,7 +59,10 @@ public class TreeViewController {
             System.out.println(tabPane.getTabs().size());
 
             try {
+                // I'm sorry for this very big crutch :(((
+
                 selectedItem.getValue().number.toString();
+
                 ObservableList<Student> students2 = FXCollections.observableArrayList();
                 students2.addAll(selectedItem.getValue().students);
 

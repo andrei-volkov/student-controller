@@ -3,7 +3,10 @@ package anrix.dao;
 import anrix.model.Faculty;
 import anrix.model.Group;
 import anrix.model.Student;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +14,8 @@ import java.util.Random;
 public class ArrayListFacultyDAO implements FacultyDAO {
 
     private static volatile FacultyDAO instance;
-    private List<Faculty> faculties = new ArrayList<>();
+    private ObservableList<Faculty> faculties = FXCollections.observableArrayList();
+    private ObservableList<Student> students = FXCollections.observableArrayList();
 
     private ArrayListFacultyDAO() {
         //TODO implement db after debug
@@ -39,31 +43,49 @@ public class ArrayListFacultyDAO implements FacultyDAO {
             System.out.println(faculty);
             faculties.add(faculty);
         }
+
+        getFaculties()
+                .forEach(e -> e.groups
+                        .forEach(a -> students.addAll(a.students)));
+
     }
 
 
     @Override
-    public synchronized List<Faculty> getFaculties() {
+    public synchronized ObservableList<Faculty> getFaculties() {
         return faculties;
     }
 
     @Override
-    public synchronized void setFaculties(List<Faculty> faculties) {
+    public synchronized void setFaculties(ObservableList<Faculty> faculties) {
         this.faculties = faculties;
     }
 
     @Override
-    public synchronized boolean remove(Student student) {
+    public synchronized void remove(Student student) {
+        boolean checker = false;
+        for (Faculty f : faculties) {
+            for (Group g : f.groups) {
+                if (g.students.contains(student)) {
+                    g.students.remove(student);
+                    checker = true;
+                    break;
+                }
+                if (checker)
+                    break;;
+            }
+        }
+        students.remove(student);
+    }
+
+    @Override
+    public synchronized void remove(Group group) {
+
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public synchronized boolean remove(Group group) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public synchronized boolean remove(Faculty faculty) {
+    public synchronized void remove(Faculty faculty) {
         throw new UnsupportedOperationException();
     }
 
@@ -72,6 +94,10 @@ public class ArrayListFacultyDAO implements FacultyDAO {
             instance = new ArrayListFacultyDAO();
         }
         return instance;
+    }
+
+    public ObservableList<Student> toStudentList() {
+        return students;
     }
 
     private static class FacultyService {
