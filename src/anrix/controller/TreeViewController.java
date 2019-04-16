@@ -1,10 +1,10 @@
 package anrix.controller;
 
-import anrix.dao.ArrayListFacultyDAO;
-import anrix.dao.FacultyDAO;
-import anrix.model.Faculty;
-import anrix.model.Group;
-import anrix.model.Student;
+import anrix.model.bean.Faculty;
+import anrix.model.bean.Group;
+import anrix.model.bean.Student;
+import anrix.model.dao.ArrayListFacultyDAO;
+import anrix.model.dao.FacultyDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;

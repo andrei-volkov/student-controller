@@ -1,6 +1,6 @@
-package anrix.service;
+package anrix.model.service;
 
-import anrix.model.Student;
+import anrix.model.bean.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

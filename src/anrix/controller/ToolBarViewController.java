@@ -1,15 +1,14 @@
 package anrix.controller;
 
-import anrix.dao.ArrayListFacultyDAO;
-import anrix.dao.FacultyDAO;
-import anrix.model.Student;
-import anrix.service.FillerService;
+import anrix.model.bean.Student;
+import anrix.model.dao.ArrayListFacultyDAO;
+import anrix.model.dao.FacultyDAO;
+import anrix.model.service.FillerService;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -70,7 +69,7 @@ public class ToolBarViewController {
     }
 
     public void editButtonClicked(MouseEvent mouseEvent) {
-
+        MainViewController.rightVBox.setVisible(true);
     }
 
     public void clearButtonClicked(MouseEvent mouseEvent) {

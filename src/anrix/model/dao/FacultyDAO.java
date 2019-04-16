@@ -1,11 +1,9 @@
-package anrix.dao;
+package anrix.model.dao;
 
-import anrix.model.Faculty;
-import anrix.model.Group;
-import anrix.model.Student;
+import anrix.model.bean.Faculty;
+import anrix.model.bean.Group;
+import anrix.model.bean.Student;
 import javafx.collections.ObservableList;
-
-import java.util.List;
 
 public interface FacultyDAO {
     ObservableList<Faculty> getFaculties();

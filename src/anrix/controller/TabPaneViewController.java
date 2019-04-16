@@ -1,8 +1,8 @@
 package anrix.controller;
 
-import anrix.dao.ArrayListFacultyDAO;
-import anrix.dao.FacultyDAO;
-import anrix.model.Student;
+import anrix.model.bean.Student;
+import anrix.model.dao.ArrayListFacultyDAO;
+import anrix.model.dao.FacultyDAO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;

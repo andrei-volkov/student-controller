@@ -1,8 +1,8 @@
-package anrix.dao;
+package anrix.model.dao;
 
-import anrix.model.Faculty;
-import anrix.model.Group;
-import anrix.model.Student;
+import anrix.model.bean.Faculty;
+import anrix.model.bean.Group;
+import anrix.model.bean.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -127,8 +127,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
                 int index = (int) (rnd.nextFloat() * SALTCHARS.length());
                 salt.append(SALTCHARS.charAt(index));
             }
-            String saltStr = salt.toString();
-            return saltStr;
+            return salt.toString();
 
         }
     }
