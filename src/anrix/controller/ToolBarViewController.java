@@ -18,6 +18,7 @@ import javafx.scene.layout.Background;
 import java.util.Optional;
 
 import static anrix.controller.MainViewController.mainTabPane;
+import static anrix.controller.MainViewController.tabContentList;
 
 public class ToolBarViewController {
     @FXML
@@ -47,11 +48,11 @@ public class ToolBarViewController {
 
         Optional<ButtonType> result = confirmAlert.showAndWait();
         if (ButtonType.OK == result.get()){
-            int selctedIndex = mainTabPane.getSelectionModel().getSelectedIndex();
+            int selectedIndex = mainTabPane.getSelectionModel().getSelectedIndex();
 
             Tab selectedTab = mainTabPane
                     .getTabs()
-                    .get(selctedIndex);
+                    .get(selectedIndex);
 
             ListView<Student> content = (ListView<Student>) selectedTab.getContent();
 
@@ -60,7 +61,11 @@ public class ToolBarViewController {
                             content.getSelectionModel()
                                     .getSelectedItems());
 
-            items.forEach(e -> {facultyDAO.remove(e); content.getItems().remove(e);});
+            for (Student student : items) {
+                facultyDAO.remove(student);
+                content.getItems().remove(student);
+                tabContentList.get(selectedIndex).remove(student);
+            }
         }
     }
 
@@ -70,6 +75,11 @@ public class ToolBarViewController {
 
     public void clearButtonClicked(MouseEvent mouseEvent) {
         fieldSearch.clear();
+        int currentTabIndex = mainTabPane.getSelectionModel().getSelectedIndex();
+        Tab currentTab = mainTabPane.getTabs().get(currentTabIndex);
+        ListView<Student> currentListView = (ListView<Student>) currentTab.getContent();
+        currentListView.setItems(tabContentList.get(currentTabIndex));
+
     }
 
     public void searchFieldTextChanged(KeyEvent keyEvent) {
@@ -77,6 +87,11 @@ public class ToolBarViewController {
         Tab currentTab = mainTabPane.getTabs().get(currentTabIndex);
         ListView<Student> currentListView = (ListView<Student>) currentTab.getContent();
 
+
+        if ("".equals(fieldSearch.getText())) {
+            currentListView.setItems(tabContentList.get(currentTabIndex));
+            return;
+        }
 
         currentListView.setItems(fillerService
                 .find(MainViewController.tabContentList.get(currentTabIndex), fieldSearch.getText()));
