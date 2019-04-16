@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface FacultyDAO {
     ObservableList<Faculty> getFaculties();
-    void setFaculties(ObservableList<Faculty> faculties);
-
     ObservableList<Student> toStudentList();
+
+    void setFaculties(ObservableList<Faculty> faculties);
 
     void remove(Student student);
     void remove(Group group);

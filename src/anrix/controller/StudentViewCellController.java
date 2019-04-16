@@ -28,10 +28,10 @@ public class StudentViewCellController extends ListCell<Student> {
     @Override
     protected void updateItem(Student student, boolean empty) {
         super.updateItem(student, empty);
-        FXMLLoader mLLoader = null;
+        FXMLLoader mLLoader;
 
 
-        if(empty || student == null) {
+        if (empty || student == null) {
 
             setText(null);
             setGraphic(null);

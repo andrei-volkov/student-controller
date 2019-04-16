@@ -12,9 +12,11 @@
     <Menu fx:id="fileMenu" text="File">
         <MenuItem text="New" onAction="#fileMenuItemClicked"/>
         <SeparatorMenuItem onAction="#fileMenuItemClicked"/>
+
         <MenuItem text="Open" onAction="#fileMenuItemClicked"/>
         <MenuItem text="Save" onAction="#fileMenuItemClicked"/>
         <MenuItem text="Save as..." onAction="#fileMenuItemClicked"/>
+
         <SeparatorMenuItem/>
         <MenuItem text="Exit" onAction="#fileMenuItemClicked"/>
     </Menu>

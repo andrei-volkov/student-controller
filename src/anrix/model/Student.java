@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Student {
     public String name;
     public String surname;
-    public double averageMark;
+    public Double averageMark;
     private GENDER gender;
 
     enum GENDER {

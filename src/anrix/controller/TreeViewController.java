@@ -7,13 +7,10 @@ import anrix.model.Group;
 import anrix.model.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.control.*;
-
-import java.io.IOException;
-import java.net.URL;
 
 public class TreeViewController {
 
@@ -23,7 +20,7 @@ public class TreeViewController {
     private TabPane tabPane;
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() {
         TreeItem<Object> root = new TreeItem<>("All students");
 
         for (Faculty f : facultyDAO.getFaculties()) {
@@ -38,62 +35,50 @@ public class TreeViewController {
         groupsTree.setRoot(root);
 
 
-    // I'm sorry for this piese of shit((((
-
-        URL location = getClass().getResource("/views/TabPaneView.fxml");
-        FXMLLoader loader = new FXMLLoader();
-        loader.setBuilderFactory(new JavaFXBuilderFactory());
-
-        tabPane = (TabPane) loader.load(location.openStream());
-        TabPaneViewController children = loader.getController();
-        System.out.println(children.studentsList.getItems().size());
-
-
-        System.out.println(tabPane.getTabs().size());
-        //Parent root = (Parent) fxmlLoader.load(location.openStream());
-
+        // I'm sorry for this piece of shit((((
 
         groupsTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<Student> studentsList = FXCollections.observableArrayList();
+            ListView<Student> list = new ListView<>();
+            Tab tab = new Tab();
+
             TreeItem<Group> selectedItem = (TreeItem<Group>) newValue;
 
-            System.out.println(tabPane.getTabs().size());
-
             try {
-                // I'm sorry for this very big crutch :(((
+                selectedItem.getValue().number.toString(); // To test type
 
-                selectedItem.getValue().number.toString();
+                studentsList.addAll(selectedItem.getValue().students);
 
-                ObservableList<Student> students2 = FXCollections.observableArrayList();
-                students2.addAll(selectedItem.getValue().students);
-
-                ListView<Student> list = new ListView<>();
-                list.setItems(students2);
-                Tab tab = new Tab();
                 tab.setText(selectedItem.getValue().number.toString());
-                tab.setContent(list);
-
-                MainViewController.mainTabPane.getTabs().add(tab);
-           //     children.addNewTab(tab);
-
 
             } catch (ClassCastException e) {
                 TreeItem<Faculty> facultyTreeItem = (TreeItem<Faculty>) newValue;
-                ObservableList<Student> students2 = FXCollections.observableArrayList();
 
                 facultyTreeItem.getValue()
                         .groups
-                        .forEach(g -> students2.addAll(g.students));
+                        .forEach(g -> studentsList.addAll(g.students));
 
-
-                ListView<Student> list = new ListView<>();
-                list.setItems(students2);
-                Tab tab = new Tab();
                 tab.setText(facultyTreeItem.getValue().nameOfFaculty);
-                tab.setContent(list);
+           }
 
-                MainViewController.mainTabPane.getTabs().add(tab);
-            //    root12.getTabs().add(tab);
-            }
+            tab.setOnCloseRequest(new EventHandler<Event>() {
+                @Override
+                public void handle(Event t) {
+                    // Удалять элементы из Tab content list
+                    Tab temp = (Tab) t.getSource();
+
+                    MainViewController
+                            .tabContentList
+                            .remove(MainViewController.mainTabPane.getTabs().indexOf(temp));
+                }
+            });
+            MainViewController.tabContentList.add(FXCollections.observableArrayList(studentsList));
+
+            tab.setContent(list);
+            list.setCellFactory(studentListView -> new StudentViewCellController());
+            list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            MainViewController.mainTabPane.getTabs().add(tab);
+            list.setItems(studentsList);
         });
     }
 }

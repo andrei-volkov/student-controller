@@ -9,7 +9,7 @@
          xmlns:fx="http://javafx.com/fxml"
          fx:controller="anrix.controller.TabPaneViewController">
 
-        <Tab text="All students" closable="false">
+        <Tab text="All students" fx:id="studentListTab" closable="false">
             <ListView fx:id="studentsList"/>
         </Tab>
 </TabPane>

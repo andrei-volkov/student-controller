@@ -6,9 +6,7 @@ import anrix.model.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ArrayListFacultyDAO implements FacultyDAO {
@@ -50,7 +48,6 @@ public class ArrayListFacultyDAO implements FacultyDAO {
 
     }
 
-
     @Override
     public synchronized ObservableList<Faculty> getFaculties() {
         return faculties;
@@ -72,7 +69,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
                     break;
                 }
                 if (checker)
-                    break;;
+                    break;
             }
         }
         students.remove(student);

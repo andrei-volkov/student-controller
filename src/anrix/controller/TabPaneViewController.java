@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 public class TabPaneViewController {
@@ -16,6 +17,9 @@ public class TabPaneViewController {
     @FXML
     public TabPane tabPane;
 
+    @FXML
+    public Tab studentListTab;
+
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
     private ObservableList<Student> students = facultyDAO.toStudentList();
 
@@ -24,6 +28,8 @@ public class TabPaneViewController {
         studentsList.setCellFactory(studentListView -> new StudentViewCellController());
         studentsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         studentsList.setItems(students);
+
+        MainViewController.tabContentList.add(students);
     }
 
 }

@@ -11,9 +11,21 @@
         fx:id="anchorPane"
         fx:controller="anrix.controller.ToolBarViewController">
 
-    <JFXTextField AnchorPane.leftAnchor="5"
+    <Button fx:id="buttonCloseSearch"
+            AnchorPane.leftAnchor="0"
+            AnchorPane.bottomAnchor="4"
+            onMouseClicked="#clearButtonClicked">
+        <graphic>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+                <Image requestedHeight="15" requestedWidth="15" url="@../images/clear_button.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <JFXTextField AnchorPane.leftAnchor="27"
                   AnchorPane.topAnchor="5"
                   AnchorPane.bottomAnchor="5"
+                  onKeyReleased="#searchFieldTextChanged"
                   promptText="Search" fx:id="fieldSearch"/>
 
     <Button AnchorPane.rightAnchor="5"
