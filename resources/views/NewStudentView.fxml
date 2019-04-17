@@ -5,10 +5,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
+      fx:controller="anrix.controller.NewStudentViewController"
       prefHeight="400.0" prefWidth="250.0">
-
     <Button text="Close" />
 
     <HBox>
@@ -18,49 +19,38 @@
         </ImageView>
         <Region HBox.hgrow="ALWAYS"/>
     </HBox>
-    <HBox >
-        <Label text="Name"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Label text="Surname"/>
-    </HBox>
-
-    <HBox>
-        <TextField/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <TextField/>
-    </HBox>
-
-    <HBox>
-        <Label text="Group"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Label text="Cource"/>
-    </HBox>
-
-    <HBox>
-        <TextField/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <TextField/>
-    </HBox>
-
-    <HBox>
-        <Label text="Faculty"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Label text="Average mark"/>
-    </HBox>
-
-    <HBox>
-        <TextField/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <TextField/>
-    </HBox>
-
 
     <HBox>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button text="Save"
-                prefWidth="100"
-                prefHeight="40"
-                style="-fx-background-color: #ff0000; -fx-border-width: 5px;-fx-text-fill: #ffffff"/>
+
+        <GridPane hgap="5" vgap="5">
+            <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label text="Surname" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Label text="Group" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <Label text="Cource" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Label text="Faculty" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <Label text="Mark" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+
+            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="comboBox"  GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="180"/>
+            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        </GridPane>
+
         <Region HBox.hgrow="ALWAYS"/>
     </HBox>
+
+    <VBox>
+        <Region prefHeight="20"/>
+        <HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <JFXButton text="Save"
+                    prefWidth="100"
+                    prefHeight="40"
+                    style="-fx-background-color: #ff0000; -fx-border-width: 5px;-fx-text-fill: #ffffff"/>
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </VBox>
 </VBox>
