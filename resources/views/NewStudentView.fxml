@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      prefHeight="400.0" prefWidth="250.0">
+
+    <Button text="Close" />
+
+    <HBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ImageView cache="true" fitHeight="86" fitWidth="86" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/b_student_icon.png"/>
+        </ImageView>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+    <HBox >
+        <Label text="Name"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Surname"/>
+    </HBox>
+
+    <HBox>
+        <TextField/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField/>
+    </HBox>
+
+    <HBox>
+        <Label text="Group"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Cource"/>
+    </HBox>
+
+    <HBox>
+        <TextField/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField/>
+    </HBox>
+
+    <HBox>
+        <Label text="Faculty"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Average mark"/>
+    </HBox>
+
+    <HBox>
+        <TextField/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField/>
+    </HBox>
+
+
+    <HBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Save"
+                prefWidth="100"
+                prefHeight="40"
+                style="-fx-background-color: #ff0000; -fx-border-width: 5px;-fx-text-fill: #ffffff"/>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+</VBox>

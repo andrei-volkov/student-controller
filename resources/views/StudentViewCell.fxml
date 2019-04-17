@@ -6,13 +6,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<HBox
-    xmlns="http://javafx.com/javafx"
-    xmlns:fx="http://javafx.com/fxml"
-    fx:id="gridPane">
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="gridPane">
 
-    <ImageView cache="true" fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/edit_button.png"/>
+    <ImageView cache="true" fitHeight="48" fitWidth="48" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/stud_icon.png"/>
     </ImageView>
     <Region HBox.hgrow="ALWAYS"/>
     <VBox>

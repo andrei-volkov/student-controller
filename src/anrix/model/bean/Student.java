@@ -46,6 +46,8 @@ public class Student implements Serializable {
         FEMALE
     }
 
+    public Student() {}
+
     public Student(String name, String surname, double averageMark) {
         this.name = name;
         this.surname = surname;

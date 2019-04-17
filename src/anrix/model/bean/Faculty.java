@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Faculty implements Serializable {
-    @Override
-    public String toString() {
-        return nameOfFaculty;
-    }
+    public String nameOfFaculty;
+    public ArrayList<Group> groups = new ArrayList<>();
+
+    public Faculty() {}
 
     public ArrayList<Group> getGroups() {
         return groups;
@@ -20,11 +20,13 @@ public class Faculty implements Serializable {
     public String getNameOfFaculty() {
         return nameOfFaculty;
     }
-
     public void setNameOfFaculty(String nameOfFaculty) {
         this.nameOfFaculty = nameOfFaculty;
     }
 
-    public ArrayList<Group> groups = new ArrayList<>();
-    public String nameOfFaculty;
+
+    @Override
+    public String toString() {
+        return nameOfFaculty;
+    }
 }

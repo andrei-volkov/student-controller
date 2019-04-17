@@ -8,16 +8,19 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Optional;
 
-import static anrix.controller.MainViewController.mainTabPane;
-import static anrix.controller.MainViewController.tabContentList;
+import static anrix.controller.MainViewController.*;
 
 public class ToolBarViewController {
     @FXML
@@ -69,7 +72,24 @@ public class ToolBarViewController {
     }
 
     public void editButtonClicked(MouseEvent mouseEvent) {
-        MainViewController.rightVBox.setVisible(true);
+        Stage stage = (Stage) mainWindow.getScene().getWindow();
+        if (null == mainWindow.getRight()) {
+            stage.setWidth(stage.getWidth() + 250);
+            VBox a = null;
+
+            try {
+                a = FXMLLoader.load(getClass().getResource("/views/NewStudentView.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            mainWindow.setRight(a);
+
+        } else {
+            mainWindow.setRight(null);
+            stage.setWidth(stage.getWidth() - 250);
+        }
+
     }
 
     public void clearButtonClicked(MouseEvent mouseEvent) {

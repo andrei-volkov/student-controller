@@ -8,6 +8,8 @@ public class Group implements Serializable {
     public Integer number;
     public ArrayList<Student> students = new ArrayList<>();
 
+    public Group() {}
+
     public Integer getCourse() {
         return course;
     }

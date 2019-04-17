@@ -2,6 +2,7 @@
 
 
 <?import javafx.scene.control.TreeView?>
+
 <TreeView fx:id="groupsTree"
           prefWidth="180"
           xmlns="http://javafx.com/javafx"

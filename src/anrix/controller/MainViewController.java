@@ -10,16 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
 public class MainViewController {
     @FXML
     public MenuBar menuBar;
-
-    @FXML
-    public VBox rightPanel;
 
     @FXML
     private AnchorPane toolBar;
@@ -48,17 +44,18 @@ public class MainViewController {
     @FXML
     private ListView<Student> studentsList;
 
+    public static ArrayList<ObservableList<Student>> tabContentList = new ArrayList<>();
     private ObservableList<Student> students = FXCollections.observableArrayList();
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
-    public static TabPane mainTabPane;
-    public static VBox rightVBox;
-    public static ArrayList<ObservableList<Student>> tabContentList = new ArrayList<>();
 
+    public static TabPane mainTabPane;
+    public static BorderPane mainWindow;
 
     @FXML
     public void initialize() {
         // TODO FIX THIS UGLY CODE (IS BETTER TO REMOVE IT))
         mainTabPane = tabPane;
-        rightVBox = rightPanel;
+        mainWindow = borderPane;
     }
+
 }
