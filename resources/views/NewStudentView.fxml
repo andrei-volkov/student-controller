@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="anrix.controller.NewStudentViewController"
       prefHeight="400.0" prefWidth="250.0">
-    <Button text="Close" />
+
+    <Region prefHeight="5"/>
+
+    <Button fx:id="closeWindowButton" onMouseClicked="#closeButtonClicked">
+        <graphic>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+                <Image requestedHeight="18" requestedWidth="18" url="@../images/back_btn_icon.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
 
     <HBox>
         <Region HBox.hgrow="ALWAYS"/>
@@ -26,17 +35,17 @@
         <GridPane hgap="5" vgap="5">
             <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             <Label text="Surname" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <Label text="Group" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <Label text="Cource" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Label text="Course" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <Label text="Group" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
             <Label text="Faculty" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
             <Label text="Mark" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
 
-            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <ComboBox fx:id="comboBox"  GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="180"/>
-            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-            <TextField  GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            <TextField  fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <TextField  fx:id="surnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="courseComboBox"  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <ComboBox fx:id="groupComboBox"  GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="180"/>
+            <TextField fx:id="facultyTextField"  GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            <TextField fx:id="markTextField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
         </GridPane>
 
         <Region HBox.hgrow="ALWAYS"/>
@@ -46,10 +55,12 @@
         <Region prefHeight="20"/>
         <HBox>
             <Region HBox.hgrow="ALWAYS"/>
+
             <JFXButton text="Save"
                     prefWidth="100"
                     prefHeight="40"
                     style="-fx-background-color: #ff0000; -fx-border-width: 5px;-fx-text-fill: #ffffff"/>
+
             <Region HBox.hgrow="ALWAYS"/>
         </HBox>
     </VBox>

@@ -84,12 +84,7 @@ public class ToolBarViewController {
             }
 
             mainWindow.setRight(a);
-
-        } else {
-            mainWindow.setRight(null);
-            stage.setWidth(stage.getWidth() - 250);
         }
-
     }
 
     public void clearButtonClicked(MouseEvent mouseEvent) {

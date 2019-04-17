@@ -86,6 +86,21 @@ public class ArrayListFacultyDAO implements FacultyDAO {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public void add(Student student) {
+
+    }
+
+    @Override
+    public void add(Group group) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void add(Faculty faculty) {
+        throw new UnsupportedOperationException();
+    }
+
     public static synchronized FacultyDAO getInstance() {
         if (instance == null) {
             instance = new ArrayListFacultyDAO();

@@ -15,4 +15,7 @@ public interface FacultyDAO {
     void remove(Group group);
     void remove(Faculty faculty);
 
+    void add(Student student);
+    void add(Group group);
+    void add(Faculty faculty);
 }
