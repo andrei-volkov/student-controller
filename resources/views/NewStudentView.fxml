@@ -44,7 +44,7 @@
             <TextField  fx:id="surnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <ComboBox fx:id="courseComboBox"  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             <ComboBox fx:id="groupComboBox"  GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="180"/>
-            <TextField fx:id="facultyTextField"  GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            <ComboBox fx:id="facultyComboBox"  GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="180"/>
             <TextField fx:id="markTextField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
         </GridPane>
 

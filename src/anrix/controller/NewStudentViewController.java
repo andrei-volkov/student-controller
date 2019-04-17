@@ -1,5 +1,6 @@
 package anrix.controller;
 
+import anrix.model.bean.Faculty;
 import anrix.model.bean.Group;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
@@ -25,9 +26,6 @@ public class NewStudentViewController {
     public TextField surnameTextField;
 
     @FXML
-    public TextField facultyTextField;
-
-    @FXML
     public TextField markTextField;
 
     @FXML
@@ -36,16 +34,22 @@ public class NewStudentViewController {
     @FXML
     public ComboBox<String> courseComboBox;
 
+    @FXML
+    public ComboBox<Faculty> facultyComboBox;
+
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
     private ObservableList<Group> groups;
     private ObservableList<String> courses;
+    private ObservableList<Faculty> faculties;
 
     @FXML
     private void initialize() {
         groups = FXCollections.observableArrayList();
         courses = FXCollections.observableArrayList();
+        faculties = FXCollections.observableArrayList();
 
         facultyDAO.getFaculties().forEach(f -> groups.addAll(f.groups));
+        faculties.addAll(facultyDAO.getFaculties());
 
         for (Integer i = 1; i <= 5; i++) {
             courses.addAll(i.toString());
@@ -53,7 +57,9 @@ public class NewStudentViewController {
 
         courseComboBox.setItems(courses);
         groupComboBox.setItems(groups);
+        facultyComboBox.setItems(faculties);
 
+        facultyComboBox.getSelectionModel().select(0);
         courseComboBox.getSelectionModel().select(0);
         groupComboBox.getSelectionModel().select(0);
     }
