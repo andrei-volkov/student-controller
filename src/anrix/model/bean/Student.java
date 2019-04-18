@@ -4,6 +4,38 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Student implements Serializable {
+    public String name;
+    public String surname;
+    public String group;
+    public String course;
+    public String faculty;
+    public Double averageMark;
+    public GENDER gender;
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
     public String getName() {
         return name;
     }
@@ -36,17 +68,22 @@ public class Student implements Serializable {
         this.gender = gender;
     }
 
-    public String name;
-    public String surname;
-    public Double averageMark;
-    private GENDER gender;
-
-    enum GENDER {
+    public enum GENDER {
         MALE,
         FEMALE
     }
 
     public Student() {}
+
+    public Student(String name, String surname, String group, String course, String faculty, Double averageMark, GENDER gender) {
+        this.name = name;
+        this.surname = surname;
+        this.group = group;
+        this.course = course;
+        this.faculty = faculty;
+        this.averageMark = averageMark;
+        this.gender = gender;
+    }
 
     public Student(String name, String surname, double averageMark) {
         this.name = name;

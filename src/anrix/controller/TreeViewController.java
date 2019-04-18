@@ -7,8 +7,6 @@ import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -43,7 +41,6 @@ public class TreeViewController {
             Tab tab = new Tab();
 
             TreeItem<Group> selectedItem = (TreeItem<Group>) newValue;
-
             try {
                 selectedItem.getValue().number.toString(); // To test type
 
@@ -54,24 +51,17 @@ public class TreeViewController {
             } catch (ClassCastException e) {
                 TreeItem<Faculty> facultyTreeItem = (TreeItem<Faculty>) newValue;
 
-                facultyTreeItem.getValue()
-                        .groups
-                        .forEach(g -> studentsList.addAll(g.students));
+                try {
+                    facultyTreeItem.getValue()
+                            .groups
+                            .forEach(g -> studentsList.addAll(g.students));
 
-                tab.setText(facultyTreeItem.getValue().nameOfFaculty);
-           }
-
-            tab.setOnCloseRequest(new EventHandler<Event>() {
-                @Override
-                public void handle(Event t) {
-                    // Удалять элементы из Tab content list
-                    Tab temp = (Tab) t.getSource();
-
-                    MainViewController
-                            .tabContentList
-                            .remove(MainViewController.mainTabPane.getTabs().indexOf(temp));
+                    tab.setText(facultyTreeItem.getValue().nameOfFaculty);
+                } catch (ClassCastException ex) {
+                    studentsList.addAll(facultyDAO.toStudentList());
+                    tab.setText("All students");
                 }
-            });
+           }
             MainViewController.tabContentList.add(FXCollections.observableArrayList(studentsList));
 
             tab.setContent(list);
@@ -79,6 +69,15 @@ public class TreeViewController {
             list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             MainViewController.mainTabPane.getTabs().add(tab);
             list.setItems(studentsList);
+
+            tab.setOnCloseRequest(t -> {
+                // Удалять элементы из Tab content list
+                Tab temp = (Tab) t.getSource();
+
+                MainViewController
+                        .tabContentList
+                        .remove(MainViewController.mainTabPane.getTabs().indexOf(temp));
+            });
         });
     }
 }

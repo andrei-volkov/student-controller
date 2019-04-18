@@ -2,6 +2,7 @@ package anrix.controller;
 
 import anrix.model.bean.Faculty;
 import anrix.model.bean.Group;
+import anrix.model.bean.Student;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
 import javafx.collections.FXCollections;
@@ -65,6 +66,29 @@ public class NewStudentViewController {
     }
 
     public void closeButtonClicked(MouseEvent mouseEvent) {
+        closeWindow();
+    }
+
+    public void submitButtonClicked() {
+        int selectedGroupIndex = groupComboBox.getSelectionModel().getSelectedIndex();
+        int selectedFacultyIndex = facultyComboBox.getSelectionModel().getSelectedIndex();
+        int selectedCourseIndex = courseComboBox.getSelectionModel().getSelectedIndex();
+
+
+
+        Student student = new Student(nameTextField.getText(),
+                                      surnameTextField.getText(),
+                                      groupComboBox.getItems().get(selectedGroupIndex).getNumber(),
+                                      courseComboBox.getItems().get(selectedCourseIndex),
+                                      facultyComboBox.getItems().get(selectedFacultyIndex).getNameOfFaculty(),
+                                      Double.parseDouble(markTextField.getText()),
+                                      Student.GENDER.FEMALE);
+
+        facultyDAO.add(student);
+        closeWindow();
+    }
+
+    private void closeWindow() {
         mainWindow.setRight(null);
         Stage stage = (Stage) mainWindow.getScene().getWindow();
         stage.setWidth(stage.getWidth() - 250);

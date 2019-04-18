@@ -27,7 +27,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
             for (char a : "abcdef".toCharArray()) {
                 Group group = new Group();
                 group.course = a - '0';
-                group.number = (int) (Math.random() * 100);
+                group.number = Long.toString(Math.round(Math.random() * 100));
                 group.students = new ArrayList<>();
 
                 for (int b = 0; b < 10; b++) {
@@ -88,7 +88,17 @@ public class ArrayListFacultyDAO implements FacultyDAO {
 
     @Override
     public void add(Student student) {
+        String groupNumber = student.group;
 
+        for (Faculty  f : faculties) {
+            for (Group group : f.groups) {
+                if (group.number.equals(groupNumber)) {
+                    group.getStudents().add(student);
+                }
+            }
+        }
+
+        students.add(student);
     }
 
     @Override
@@ -122,7 +132,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
             for (char a : "abcdef".toCharArray()) {
                 Group group = new Group();
                 group.course =  a - '0';
-                group.number = (int) (Math.random() * 100);
+                group.number =  Long.toString(Math.round(Math.random() * 100));
                 group.students = new ArrayList<>();
 
                 for (int b = 0; b < 10; b++) {

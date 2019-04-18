@@ -47,10 +47,11 @@ public class StudentViewCellController extends ListCell<Student> {
                 e.printStackTrace();
             }
 
+
             name.setText(student.name);
             surname.setText(student.surname);
-            group.setText("Group: " + "adsad");
-            cource.setText("Course: " + "1");
+            group.setText("Group: " + student.group);
+            cource.setText("Course: " + student.course);
 
             setText(null);
             setGraphic(gridPane);

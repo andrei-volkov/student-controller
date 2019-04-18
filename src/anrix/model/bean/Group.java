@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Group implements Serializable {
     public Integer course;
-    public Integer number;
+    public String number;
     public ArrayList<Student> students = new ArrayList<>();
 
     public Group() {}
@@ -18,11 +18,11 @@ public class Group implements Serializable {
         this.course = course;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
