@@ -4,6 +4,8 @@ import anrix.model.bean.Student;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
 import anrix.model.service.FillerService;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +30,9 @@ public class ToolBarViewController {
 
     @FXML
     public Button buttonCloseSearch;
+
+    @FXML
+    public JFXNodesList filterNodeList;
 
     @FXML
     private JFXTextField fieldSearch;
@@ -87,20 +92,24 @@ public class ToolBarViewController {
         }
     }
 
+    private ListView<Student> getCurrentListView(int currentTabIndex) {
+        Tab currentTab = mainTabPane.getTabs().get(currentTabIndex);
+        return  (ListView<Student>) currentTab.getContent();
+    }
+
     public void clearButtonClicked(MouseEvent mouseEvent) {
         fieldSearch.clear();
+
         int currentTabIndex = mainTabPane.getSelectionModel().getSelectedIndex();
-        Tab currentTab = mainTabPane.getTabs().get(currentTabIndex);
-        ListView<Student> currentListView = (ListView<Student>) currentTab.getContent();
+        ListView<Student> currentListView = getCurrentListView(currentTabIndex);
+
         currentListView.setItems(tabContentList.get(currentTabIndex));
 
     }
 
     public void searchFieldTextChanged(KeyEvent keyEvent) {
         int currentTabIndex = mainTabPane.getSelectionModel().getSelectedIndex();
-        Tab currentTab = mainTabPane.getTabs().get(currentTabIndex);
-        ListView<Student> currentListView = (ListView<Student>) currentTab.getContent();
-
+        ListView<Student> currentListView = getCurrentListView(currentTabIndex);
 
         if ("".equals(fieldSearch.getText())) {
             currentListView.setItems(tabContentList.get(currentTabIndex));
@@ -110,5 +119,33 @@ public class ToolBarViewController {
         currentListView.setItems(fillerService
                 .find(MainViewController.tabContentList.get(currentTabIndex), fieldSearch.getText()));
 
+    }
+
+    public void sortButtonClicked(MouseEvent mouseEvent) {
+        JFXButton selectedButton = (JFXButton) mouseEvent.getSource();
+        JFXButton currentButton = (JFXButton) filterNodeList.getChildren().get(0);
+
+        if (!selectedButton.getText().equals(currentButton.getText())) {
+
+            String currentText = currentButton.getText();
+            currentButton.setText(selectedButton.getText());
+            selectedButton.setText(currentText);
+
+
+            int currentTabIndex = mainTabPane.getSelectionModel().getSelectedIndex();
+            ListView<Student> currentListView = getCurrentListView(currentTabIndex);
+
+            currentListView.setItems(fillerService
+                    .sort(MainViewController.tabContentList.get(currentTabIndex),
+                            currentButton.getText()));
+        }
+    }
+
+    public void onFocused(MouseEvent mouseEvent) {
+        filterNodeList.animateList(true);
+    }
+
+    public void onUnfocused(MouseEvent mouseEvent) {
+        filterNodeList.animateList(false);
     }
 }

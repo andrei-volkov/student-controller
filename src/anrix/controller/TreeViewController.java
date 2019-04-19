@@ -46,7 +46,7 @@ public class TreeViewController {
 
                 studentsList.addAll(selectedItem.getValue().students);
 
-                tab.setText(selectedItem.getValue().number.toString());
+                tab.setText(selectedItem.getValue().number);
 
             } catch (ClassCastException e) {
                 TreeItem<Faculty> facultyTreeItem = (TreeItem<Faculty>) newValue;

@@ -4,6 +4,9 @@ import anrix.model.bean.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 public class FillerService {
     private FillerService() {}
 
@@ -27,5 +30,32 @@ public class FillerService {
         }
 
         return results;
+    }
+
+    public ObservableList<Student> sort(ObservableList<Student> students, String key) {
+        switch (key) {
+            case "A-Z":
+                return students
+                        .stream()
+                        .sorted(Comparator.comparing(Student::getName))
+                        .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            case "Z-A":
+                return students
+                        .stream()
+                        .sorted(Comparator.comparing(Student::getName).reversed())
+                        .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            case "0-9":
+                return students
+                        .stream()
+                        .sorted(Comparator.comparing(Student::getGroup))
+                        .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            case "9-0":
+                return students
+                        .stream()
+                        .sorted(Comparator.comparing(Student::getGroup).reversed())
+                        .collect(Collectors.toCollection(FXCollections::observableArrayList));
+            default:
+                throw new IllegalArgumentException("There are no such cases");
+        }
     }
 }

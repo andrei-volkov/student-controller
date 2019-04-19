@@ -60,7 +60,9 @@
                     prefWidth="100"
                     onMouseClicked="#submitButtonClicked"
                     prefHeight="40"
-                    style="-fx-background-color: #ff0000; -fx-border-width: 5px;-fx-text-fill: #ffffff"/>
+                    style="-fx-background-color: #ff0000;
+                           -fx-border-width: 5px;
+                           -fx-text-fill: #ffffff"/>
 
             <Region HBox.hgrow="ALWAYS"/>
         </HBox>

@@ -14,13 +14,17 @@
         <Image url="@../images/stud_icon.png"/>
     </ImageView>
     <Region HBox.hgrow="ALWAYS"/>
-    <VBox>
-        <Label fx:id="name"/>
-        <Label fx:id="surname"/>
+
+    <VBox alignment="CENTER_LEFT">
+        <Label fx:id="name" alignment="CENTER_LEFT"/>
+        <Label fx:id="surname" alignment="CENTER_LEFT"/>
     </VBox>
 
     <Region HBox.hgrow="ALWAYS"/>
     <Label fx:id="cource" minHeight="50" alignment="CENTER_RIGHT"/>
+
     <Region HBox.hgrow="ALWAYS"/>
+
     <Label fx:id="group" minHeight="50" alignment="CENTER_RIGHT"/>
+
 </HBox>

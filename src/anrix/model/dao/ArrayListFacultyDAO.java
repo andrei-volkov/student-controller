@@ -19,26 +19,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
         //TODO implement db after debug
 
         for (int e = 0; e < 2; e++) {
-            Faculty faculty = new Faculty();
-            faculty.nameOfFaculty = "Fkis" + e;
-
-            faculty.groups = new ArrayList<>();
-
-            for (char a : "abcdef".toCharArray()) {
-                Group group = new Group();
-                group.course = a - '0';
-                group.number = Long.toString(Math.round(Math.random() * 100));
-                group.students = new ArrayList<>();
-
-                for (int b = 0; b < 10; b++) {
-                    group.students.add(
-                            new Student(FacultyService.getSaltString(),
-                                    FacultyService.getSaltString(),
-                                    2d));
-                }
-                faculty.groups.add(group);
-            }
-            System.out.println(faculty);
+            Faculty faculty = FacultyService.getSample();
             faculties.add(faculty);
         }
 
@@ -135,8 +116,17 @@ public class ArrayListFacultyDAO implements FacultyDAO {
                 group.number =  Long.toString(Math.round(Math.random() * 100));
                 group.students = new ArrayList<>();
 
+
+
                 for (int b = 0; b < 10; b++) {
-                    group.students.add(new Student(getSaltString(), getSaltString(), 2d));
+                    group.students.add(
+                            new Student(getSaltString(),
+                                        getSaltString(),
+                                        group.getNumber(),
+                                        (new Integer((int) (Math.random() * 5))).toString(),
+                                        "Someone",
+                                        (Math.random() * 10),
+                                        Student.GENDER.MALE));
                 }
                 faculty.groups.add(group);
             }

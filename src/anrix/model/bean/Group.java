@@ -38,5 +38,4 @@ public class Group implements Serializable {
     public String toString() {
         return number.toString();
     }
-
 }

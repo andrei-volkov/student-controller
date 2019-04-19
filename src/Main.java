@@ -12,7 +12,6 @@ public class Main extends Application {
 
     //TODO remove
 
-
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane a = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
