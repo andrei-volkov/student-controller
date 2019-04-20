@@ -57,8 +57,25 @@ public class NewStudentViewController {
         courses = FXCollections.observableArrayList();
         faculties = FXCollections.observableArrayList();
 
-        facultyDAO.getFaculties().forEach(f -> groups.addAll(f.groups));
         faculties.addAll(facultyDAO.getFaculties());
+        groups.addAll(facultyDAO.getFaculties()
+                    .stream()
+                    .filter(f -> f.getName().equals(faculties.get(0).getName()))
+                    .findFirst()
+                    .get()
+                    .getGroups());
+
+        facultyComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            groups.clear();
+            groups.addAll(facultyDAO.getFaculties()
+                    .stream()
+                    .filter(f -> f.getName().equals(newValue.getName()))
+                    .findFirst()
+                    .get()
+                    .getGroups());
+            groupComboBox.getSelectionModel().select(0);
+        });
+
 
         for (int i = 1; i <= 5; i++) {
             courses.addAll(Integer.toString(i));
@@ -73,6 +90,9 @@ public class NewStudentViewController {
         courseComboBox.getSelectionModel().select(0);
         groupComboBox.getSelectionModel().select(0);
         genderComboBox.getSelectionModel().select(0);
+
+
+
     }
 
     public void closeButtonClicked(MouseEvent mouseEvent) {
