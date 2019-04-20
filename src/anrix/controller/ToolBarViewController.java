@@ -115,7 +115,7 @@ public class ToolBarViewController {
         }
 
         currentListView.setItems(fillerService
-                .find(MainViewController.tabContentList.get(currentTabIndex), fieldSearch.getText()));
+                .findMatches(MainViewController.tabContentList.get(currentTabIndex), fieldSearch.getText()));
 
     }
 
