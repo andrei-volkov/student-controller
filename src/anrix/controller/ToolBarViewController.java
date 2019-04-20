@@ -76,7 +76,7 @@ public class ToolBarViewController {
         }
     }
 
-    public void editButtonClicked(MouseEvent mouseEvent) {
+    public void newStudentButtonClicked(MouseEvent mouseEvent) {
         Stage stage = (Stage) mainWindow.getScene().getWindow();
         if (null == mainWindow.getRight()) {
             stage.setWidth(stage.getWidth() + 250);
@@ -147,5 +147,11 @@ public class ToolBarViewController {
 
     public void onUnfocused(MouseEvent mouseEvent) {
         filterNodeList.animateList(false);
+    }
+
+    public void newGroupButtonClicked(MouseEvent mouseEvent) {
+
+
+
     }
 }

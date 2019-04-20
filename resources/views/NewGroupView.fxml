@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="anrix.controller.NewGroupViewController"
+      prefHeight="400.0" prefWidth="250.0">
+
+    <Region prefHeight="Infinity"/>
+
+    <JFXComboBox fx:id="typeOfCroup"/>
+
+    <Region prefHeight="Infinity"/>
+
+</VBox>

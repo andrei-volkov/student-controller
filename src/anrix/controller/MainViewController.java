@@ -1,10 +1,7 @@
 package anrix.controller;
 
 import anrix.model.bean.Student;
-import anrix.model.dao.ArrayListFacultyDAO;
-import anrix.model.dao.FacultyDAO;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -45,15 +42,12 @@ public class MainViewController {
     private ListView<Student> studentsList;
 
     public static ArrayList<ObservableList<Student>> tabContentList = new ArrayList<>();
-    private ObservableList<Student> students = FXCollections.observableArrayList();
-    private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
 
     public static TabPane mainTabPane;
     public static BorderPane mainWindow;
 
     @FXML
     public void initialize() {
-        // TODO FIX THIS UGLY CODE (IS BETTER TO REMOVE IT))
         mainTabPane = tabPane;
         mainWindow = borderPane;
     }

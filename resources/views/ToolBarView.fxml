@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXNodesList?>
-<?import com.jfoenix.controls.JFXButton?>
 <AnchorPane
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
@@ -43,7 +40,7 @@
 
     <Button AnchorPane.rightAnchor="47"
             AnchorPane.topAnchor="5"
-            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#editButtonClicked">
+            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#newStudentButtonClicked">
         <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
                 <Image url="@../images/new_student_icon.png"/>
@@ -53,10 +50,10 @@
 
     <Button AnchorPane.rightAnchor="89"
             AnchorPane.topAnchor="5"
-            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#removeButtonClicked">
+            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#newGroupButtonClicked">
         <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
-                <Image url="@../images/edit_button.png"/>
+                <Image url="@../images/new_group_icon.png"/>
             </ImageView>
         </graphic>
     </Button>
@@ -68,12 +65,10 @@
           onMouseExited="#onUnfocused">
 
         <JFXNodesList fx:id="filterNodeList" rotate="90" spacing="20">
-            <children>
-                <JFXButton onMouseClicked="#sortButtonClicked" text="A-Z"/>
-                <JFXButton onMouseClicked="#sortButtonClicked" text="Z-A"/>
-                <JFXButton onMouseClicked="#sortButtonClicked" text="0-9"/>
-                <JFXButton onMouseClicked="#sortButtonClicked" text="9-0"/>
-            </children>
+            <JFXButton onMouseClicked="#sortButtonClicked" text="A-Z"/>
+            <JFXButton onMouseClicked="#sortButtonClicked" text="Z-A"/>
+            <JFXButton onMouseClicked="#sortButtonClicked" text="0-9"/>
+            <JFXButton onMouseClicked="#sortButtonClicked" text="9-0"/>
         </JFXNodesList>
     </HBox>
 </AnchorPane>
