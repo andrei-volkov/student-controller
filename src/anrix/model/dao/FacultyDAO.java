@@ -16,6 +16,6 @@ public interface FacultyDAO {
     void remove(Faculty faculty);
 
     void add(Student student);
-    void add(Group group);
+    void add(Group group, String facultyName);
     void add(Faculty faculty);
 }

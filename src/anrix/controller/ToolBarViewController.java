@@ -45,8 +45,6 @@ public class ToolBarViewController {
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
     private FillerService fillerService = FillerService.getInstance();
 
-    private static final int RIGHT_WINDOW_WIDTH = 250;
-
     @FXML
     public void initialize() {
         confirmRemoveAlert = new Alert(CONFIRMATION);

@@ -20,7 +20,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
 
         for (int e = 0; e < 2; e++) {
             Faculty faculty = FacultyService.getSample();
-            faculty.setNameOfFaculty(faculty.getNameOfFaculty() + e);
+            faculty.setName(faculty.getName() + e);
             faculties.add(faculty);
         }
 
@@ -84,13 +84,19 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     }
 
     @Override
-    public void add(Group group) {
-        throw new UnsupportedOperationException();
+    public void add(Group group, String facultyName) {
+        for (Faculty  f : faculties) {
+            if (f.getName().equals(facultyName)) {
+                f.getGroups().add(group);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Illegal name of faculty");
     }
 
     @Override
     public void add(Faculty faculty) {
-        throw new UnsupportedOperationException();
+        faculties.add(faculty);
     }
 
     public static synchronized FacultyDAO getInstance() {
@@ -107,7 +113,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     private static class FacultyService {
         public static Faculty getSample() {
             Faculty faculty = new Faculty();
-            faculty.nameOfFaculty = "Fkis";
+            faculty.name = "Fkis";
 
             faculty.groups = new ArrayList<>();
 

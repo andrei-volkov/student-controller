@@ -41,11 +41,13 @@ public class MainViewController {
     @FXML
     private ListView<Student> studentsList;
 
+    public static final int RIGHT_WINDOW_WIDTH = 250;
+
     public static ArrayList<ObservableList<Student>> tabContentList = new ArrayList<>();
 
     public static TabPane mainTabPane;
     public static BorderPane mainWindow;
-    public static TreeView mainGroupsTree;
+    public static TreeView<String> mainGroupsTree;
 
     @FXML
     public void initialize() {

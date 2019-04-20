@@ -63,7 +63,7 @@ public class FillerService {
 
     public Faculty findFaculty(ObservableList<Faculty> faculties, String facultyName) {
         for (Faculty faculty : faculties) {
-            if (facultyName.equals(faculty.nameOfFaculty))
+            if (facultyName.equals(faculty.name))
                 return faculty;
         }
         throw new IllegalArgumentException("Invalid faculty name");

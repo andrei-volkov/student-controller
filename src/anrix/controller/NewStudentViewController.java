@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.util.Arrays;
 
+import static anrix.controller.MainViewController.RIGHT_WINDOW_WIDTH;
 import static anrix.controller.MainViewController.mainWindow;
 import static anrix.model.bean.Student.GENDER.FEMALE;
 import static anrix.model.bean.Student.GENDER.MALE;
@@ -84,7 +85,7 @@ public class NewStudentViewController {
                 surnameTextField.getText(),
                 groupComboBox.getSelectionModel().getSelectedItem().getId(),
                 courseComboBox.getSelectionModel().getSelectedItem(),
-                facultyComboBox.getSelectionModel().getSelectedItem().getNameOfFaculty(),
+                facultyComboBox.getSelectionModel().getSelectedItem().getName(),
                 Double.parseDouble(markTextField.getText()),
                 "Male".equals(genderComboBox.getSelectionModel().getSelectedItem()) ? MALE : FEMALE );
 
@@ -95,6 +96,6 @@ public class NewStudentViewController {
     private void closeWindow() {
         mainWindow.setRight(null);
         Stage stage = (Stage) mainWindow.getScene().getWindow();
-        stage.setWidth(stage.getWidth() - 250);
+        stage.setWidth(stage.getWidth() - RIGHT_WINDOW_WIDTH);
     }
 }

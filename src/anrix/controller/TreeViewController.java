@@ -25,7 +25,7 @@ public class TreeViewController {
         TreeItem<String> root = new TreeItem<>("All students");
 
         for (Faculty f : facultyDAO.getFaculties()) {
-            TreeItem<String> item = new TreeItem<>(f.nameOfFaculty);
+            TreeItem<String> item = new TreeItem<>(f.name);
             for (Group g : f.groups) {
                 item.getChildren().add(new TreeItem<>(g.id));
             }
@@ -52,7 +52,7 @@ public class TreeViewController {
                faculty.groups
                        .forEach(g -> studentsList.addAll(g.students));
 
-               tab.setText(faculty.nameOfFaculty);
+               tab.setText(faculty.name);
             } else {
                 Group group = fillerService
                         .findGroup(facultyDAO.getFaculties(), newValue.getValue());
@@ -61,36 +61,14 @@ public class TreeViewController {
                 tab.setText(group.id);
             }
 
-
-
-//            try {
-//                selectedItem.getValue().id.toString(); // To test type
-//
-//                studentsList.addAll(selectedItem.getValue().students);
-//
-//                tab.setText(selectedItem.getValue().id);
-//
-//            } catch (ClassCastException e) {
-//                TreeItem<Faculty> facultyTreeItem = (TreeItem<Faculty>) newValue;
-//
-//                try {
-//                    facultyTreeItem.getValue()
-//                            .groups
-//                            .forEach(g -> studentsList.addAll(g.students));
-//
-//                    tab.setText(facultyTreeItem.getValue().nameOfFaculty);
-//                } catch (ClassCastException ex) {
-//                    studentsList.addAll(facultyDAO.toStudentList());
-//                    tab.setText("All students");
-//                }
-//           }
             MainViewController.tabContentList.add(FXCollections.observableArrayList(studentsList));
-
             tab.setContent(list);
+
             list.setCellFactory(studentListView -> new StudentViewCellController());
             list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            mainTabPane.getTabs().add(tab);
             list.setItems(studentsList);
+
+            mainTabPane.getTabs().add(tab);
 
             tab.setOnCloseRequest(t -> {
                 // Удалять элементы из Tab content list

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Faculty implements Serializable {
-    public String nameOfFaculty;
+    public String name;
     public ArrayList<Group> groups = new ArrayList<>();
 
     public Faculty() {}
@@ -17,16 +17,16 @@ public class Faculty implements Serializable {
         this.groups = groups;
     }
 
-    public String getNameOfFaculty() {
-        return nameOfFaculty;
+    public String getName() {
+        return name;
     }
-    public void setNameOfFaculty(String nameOfFaculty) {
-        this.nameOfFaculty = nameOfFaculty;
+    public void setName(String name) {
+        this.name = name;
     }
 
 
     @Override
     public String toString() {
-        return nameOfFaculty;
+        return name;
     }
 }
