@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Group implements Serializable {
     public Integer course;
-    public String number;
+    public String id;
     public ArrayList<Student> students = new ArrayList<>();
 
     public Group() {}
@@ -18,12 +18,12 @@ public class Group implements Serializable {
         this.course = course;
     }
 
-    public String getNumber() {
-        return number;
+    public String getId() {
+        return id;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public ArrayList<Student> getStudents() {
@@ -36,6 +36,6 @@ public class Group implements Serializable {
 
     @Override
     public String toString() {
-        return number.toString();
+        return id;
     }
 }

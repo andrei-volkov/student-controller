@@ -10,12 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import static anrix.controller.MainViewController.mainTabPane;
+
 public class TreeViewController {
 
     @FXML
     public TreeView groupsTree;
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
-    private TabPane tabPane;
 
     @FXML
     public void initialize() {
@@ -42,11 +43,11 @@ public class TreeViewController {
 
             TreeItem<Group> selectedItem = (TreeItem<Group>) newValue;
             try {
-                selectedItem.getValue().number.toString(); // To test type
+                selectedItem.getValue().id.toString(); // To test type
 
                 studentsList.addAll(selectedItem.getValue().students);
 
-                tab.setText(selectedItem.getValue().number);
+                tab.setText(selectedItem.getValue().id);
 
             } catch (ClassCastException e) {
                 TreeItem<Faculty> facultyTreeItem = (TreeItem<Faculty>) newValue;
@@ -67,7 +68,7 @@ public class TreeViewController {
             tab.setContent(list);
             list.setCellFactory(studentListView -> new StudentViewCellController());
             list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            MainViewController.mainTabPane.getTabs().add(tab);
+            mainTabPane.getTabs().add(tab);
             list.setItems(studentsList);
 
             tab.setOnCloseRequest(t -> {
@@ -76,7 +77,7 @@ public class TreeViewController {
 
                 MainViewController
                         .tabContentList
-                        .remove(MainViewController.mainTabPane.getTabs().indexOf(temp));
+                        .remove(mainTabPane.getTabs().indexOf(temp));
             });
         });
     }

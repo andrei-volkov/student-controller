@@ -45,11 +45,13 @@ public class MainViewController {
 
     public static TabPane mainTabPane;
     public static BorderPane mainWindow;
+    public static TreeView mainGroupsTree;
 
     @FXML
     public void initialize() {
         mainTabPane = tabPane;
         mainWindow = borderPane;
+        mainGroupsTree = groupsTree;
     }
 
 }

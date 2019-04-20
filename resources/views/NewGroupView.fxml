@@ -1,18 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="anrix.controller.NewGroupViewController"
       prefHeight="400.0" prefWidth="250.0">
 
-    <Region prefHeight="Infinity"/>
+    <Region prefHeight="5"/>
 
-    <JFXComboBox fx:id="typeOfCroup"/>
+    <Button onMouseClicked="#closeButtonClicked">
+        <graphic>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+                <Image requestedHeight="18" requestedWidth="18" url="@../images/back_btn_icon.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Region prefHeight="Infinity"/>
+    <HBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ImageView cache="true" fitHeight="86" fitWidth="86" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/b_group_icon.png"/>
+        </ImageView>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
 
+    <Region prefHeight="10"/>
+
+    <HBox>
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <GridPane hgap="5" vgap="5">
+            <Label text="Type" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Label text="Faculty" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                   fx:id="facultyLabel" visible="false"/>
+
+            <ComboBox fx:id="typeComboBox" prefWidth="180"  GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <TextField fx:id="idTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="facultyComboBox" visible="false" prefWidth="180"  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        </GridPane>
+
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <VBox>
+        <Region prefHeight="20"/>
+        <HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <JFXButton text="Save"
+                       prefWidth="100"
+                       onMouseClicked="#submitButtonClicked"
+                       prefHeight="40"
+                       style="-fx-background-color: #ff0000;
+                           -fx-border-width: 5px;
+                           -fx-text-fill: #ffffff"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </VBox>
 </VBox>

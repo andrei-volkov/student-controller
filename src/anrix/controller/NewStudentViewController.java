@@ -14,7 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
+
 import static anrix.controller.MainViewController.mainWindow;
+import static anrix.model.bean.Student.GENDER.FEMALE;
+import static anrix.model.bean.Student.GENDER.MALE;
 
 public class NewStudentViewController {
     @FXML
@@ -38,6 +42,9 @@ public class NewStudentViewController {
     @FXML
     public ComboBox<Faculty> facultyComboBox;
 
+    @FXML
+    public ComboBox<String> genderComboBox;
+
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
     private ObservableList<Group> groups;
     private ObservableList<String> courses;
@@ -52,17 +59,19 @@ public class NewStudentViewController {
         facultyDAO.getFaculties().forEach(f -> groups.addAll(f.groups));
         faculties.addAll(facultyDAO.getFaculties());
 
-        for (Integer i = 1; i <= 5; i++) {
-            courses.addAll(i.toString());
+        for (int i = 1; i <= 5; i++) {
+            courses.addAll(Integer.toString(i));
         }
 
         courseComboBox.setItems(courses);
         groupComboBox.setItems(groups);
         facultyComboBox.setItems(faculties);
+        genderComboBox.setItems(FXCollections.observableArrayList(Arrays.asList("Male", "Female")));
 
         facultyComboBox.getSelectionModel().select(0);
         courseComboBox.getSelectionModel().select(0);
         groupComboBox.getSelectionModel().select(0);
+        genderComboBox.getSelectionModel().select(0);
     }
 
     public void closeButtonClicked(MouseEvent mouseEvent) {
@@ -70,19 +79,14 @@ public class NewStudentViewController {
     }
 
     public void submitButtonClicked() {
-        int selectedGroupIndex = groupComboBox.getSelectionModel().getSelectedIndex();
-        int selectedFacultyIndex = facultyComboBox.getSelectionModel().getSelectedIndex();
-        int selectedCourseIndex = courseComboBox.getSelectionModel().getSelectedIndex();
-
-
 
         Student student = new Student(nameTextField.getText(),
-                                      surnameTextField.getText(),
-                                      groupComboBox.getItems().get(selectedGroupIndex).getNumber(),
-                                      courseComboBox.getItems().get(selectedCourseIndex),
-                                      facultyComboBox.getItems().get(selectedFacultyIndex).getNameOfFaculty(),
-                                      Double.parseDouble(markTextField.getText()),
-                                      Student.GENDER.FEMALE);
+                surnameTextField.getText(),
+                groupComboBox.getSelectionModel().getSelectedItem().getId(),
+                courseComboBox.getSelectionModel().getSelectedItem(),
+                facultyComboBox.getSelectionModel().getSelectedItem().getNameOfFaculty(),
+                Double.parseDouble(markTextField.getText()),
+                "Male".equals(genderComboBox.getSelectionModel().getSelectedItem()) ? MALE : FEMALE );
 
         facultyDAO.add(student);
         closeWindow();
