@@ -1,5 +1,7 @@
 package anrix.model.service;
 
+import anrix.model.bean.Faculty;
+import anrix.model.bean.Group;
 import anrix.model.bean.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +21,7 @@ public class FillerService {
         return instance;
     }
 
-    public ObservableList<Student> find(ObservableList<Student> students, String key) {
+    public ObservableList<Student> findMatches(ObservableList<Student> students, String key) {
         ObservableList<Student> results = FXCollections.observableArrayList();
 
         for (Student student : students) {
@@ -58,4 +60,24 @@ public class FillerService {
                 throw new IllegalArgumentException("There are no such cases");
         }
     }
+
+    public Faculty findFaculty(ObservableList<Faculty> faculties, String facultyName) {
+        for (Faculty faculty : faculties) {
+            if (facultyName.equals(faculty.nameOfFaculty))
+                return faculty;
+        }
+        throw new IllegalArgumentException("Invalid faculty name");
+    }
+
+    public Group findGroup(ObservableList<Faculty> faculties, String groupId) {
+        for (Faculty faculty : faculties) {
+            for (Group group : faculty.groups)
+            {
+                if (groupId.equals(group.id))
+                    return group;
+            }
+        }
+        throw new IllegalArgumentException("Invalid group name");
+    }
+
 }

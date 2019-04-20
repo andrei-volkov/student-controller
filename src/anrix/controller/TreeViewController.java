@@ -5,6 +5,7 @@ import anrix.model.bean.Group;
 import anrix.model.bean.Student;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
+import anrix.model.service.FillerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,17 +16,18 @@ import static anrix.controller.MainViewController.mainTabPane;
 public class TreeViewController {
 
     @FXML
-    public TreeView groupsTree;
+    public TreeView<String> groupsTree;
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
+    private FillerService fillerService = FillerService.getInstance();
 
     @FXML
     public void initialize() {
-        TreeItem<Object> root = new TreeItem<>("All students");
+        TreeItem<String> root = new TreeItem<>("All students");
 
         for (Faculty f : facultyDAO.getFaculties()) {
-            TreeItem<Object> item = new TreeItem<>(f);
+            TreeItem<String> item = new TreeItem<>(f.nameOfFaculty);
             for (Group g : f.groups) {
-                item.getChildren().add(new TreeItem<>(g));
+                item.getChildren().add(new TreeItem<>(g.id));
             }
             item.setExpanded(true);
             root.getChildren().add(item);
@@ -34,35 +36,54 @@ public class TreeViewController {
         groupsTree.setRoot(root);
 
 
-        // I'm sorry for this piece of shit((((
 
         groupsTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Student> studentsList = FXCollections.observableArrayList();
-            ListView<Student> list = new ListView<>();
             Tab tab = new Tab();
+            ListView<Student> list = new ListView<>();
 
-            TreeItem<Group> selectedItem = (TreeItem<Group>) newValue;
-            try {
-                selectedItem.getValue().id.toString(); // To test type
-
-                studentsList.addAll(selectedItem.getValue().students);
-
-                tab.setText(selectedItem.getValue().id);
-
-            } catch (ClassCastException e) {
-                TreeItem<Faculty> facultyTreeItem = (TreeItem<Faculty>) newValue;
-
-                try {
-                    facultyTreeItem.getValue()
-                            .groups
-                            .forEach(g -> studentsList.addAll(g.students));
-
-                    tab.setText(facultyTreeItem.getValue().nameOfFaculty);
-                } catch (ClassCastException ex) {
-                    studentsList.addAll(facultyDAO.toStudentList());
+            if ("All students".equals(newValue.getValue())) {
+                studentsList.addAll(facultyDAO.toStudentList());
                     tab.setText("All students");
-                }
-           }
+            }
+            else if (groupsTree.getRoot().getChildren().indexOf(newValue) != -1) {
+               Faculty faculty =  fillerService.findFaculty(facultyDAO.getFaculties(), newValue.getValue());
+
+               faculty.groups
+                       .forEach(g -> studentsList.addAll(g.students));
+
+               tab.setText(faculty.nameOfFaculty);
+            } else {
+                Group group = fillerService
+                        .findGroup(facultyDAO.getFaculties(), newValue.getValue());
+
+                studentsList.addAll(group.students);
+                tab.setText(group.id);
+            }
+
+
+
+//            try {
+//                selectedItem.getValue().id.toString(); // To test type
+//
+//                studentsList.addAll(selectedItem.getValue().students);
+//
+//                tab.setText(selectedItem.getValue().id);
+//
+//            } catch (ClassCastException e) {
+//                TreeItem<Faculty> facultyTreeItem = (TreeItem<Faculty>) newValue;
+//
+//                try {
+//                    facultyTreeItem.getValue()
+//                            .groups
+//                            .forEach(g -> studentsList.addAll(g.students));
+//
+//                    tab.setText(facultyTreeItem.getValue().nameOfFaculty);
+//                } catch (ClassCastException ex) {
+//                    studentsList.addAll(facultyDAO.toStudentList());
+//                    tab.setText("All students");
+//                }
+//           }
             MainViewController.tabContentList.add(FXCollections.observableArrayList(studentsList));
 
             tab.setContent(list);
