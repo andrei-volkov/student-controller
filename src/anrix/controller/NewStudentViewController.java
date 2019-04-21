@@ -5,6 +5,8 @@ import anrix.model.bean.Group;
 import anrix.model.bean.Student;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
+import anrix.model.service.AnimationService;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,8 +39,6 @@ public class NewStudentViewController {
     @FXML
     public ComboBox<Group> groupComboBox;
 
-    @FXML
-    public ComboBox<String> courseComboBox;
 
     @FXML
     public ComboBox<Faculty> facultyComboBox;
@@ -46,15 +46,19 @@ public class NewStudentViewController {
     @FXML
     public ComboBox<String> genderComboBox;
 
+    private Timeline markTimeline;
+    private Timeline nameTimeline;
+    private Timeline surnameTimeline;
+
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
+    private AnimationService animationService = AnimationService.getInstance();
+
     private ObservableList<Group> groups;
-    private ObservableList<String> courses;
     private ObservableList<Faculty> faculties;
 
     @FXML
     private void initialize() {
         groups = FXCollections.observableArrayList();
-        courses = FXCollections.observableArrayList();
         faculties = FXCollections.observableArrayList();
 
         faculties.addAll(facultyDAO.getFaculties());
@@ -77,23 +81,19 @@ public class NewStudentViewController {
         });
 
 
-        for (int i = 1; i <= 5; i++) {
-            courses.addAll(Integer.toString(i));
-        }
-
-        courseComboBox.setItems(courses);
         groupComboBox.setItems(groups);
         facultyComboBox.setItems(faculties);
         genderComboBox.setItems(FXCollections.observableArrayList(Arrays.asList("Male", "Female")));
 
         facultyComboBox.getSelectionModel().select(0);
-        courseComboBox.getSelectionModel().select(0);
         groupComboBox.getSelectionModel().select(0);
         genderComboBox.getSelectionModel().select(0);
 
-
-
+        markTimeline = animationService.getIncorrectInputAnimation(markTextField);
+        nameTimeline = animationService.getIncorrectInputAnimation(nameTextField);
+        surnameTimeline = animationService.getIncorrectInputAnimation(surnameTextField);
     }
+
 
     public void closeButtonClicked(MouseEvent mouseEvent) {
         closeWindow();
@@ -101,13 +101,40 @@ public class NewStudentViewController {
 
     public void submitButtonClicked() {
 
-        Student student = new Student(nameTextField.getText(),
-                surnameTextField.getText(),
-                groupComboBox.getSelectionModel().getSelectedItem().getId(),
-                courseComboBox.getSelectionModel().getSelectedItem(),
-                facultyComboBox.getSelectionModel().getSelectedItem().getName(),
-                Double.parseDouble(markTextField.getText()),
-                "Male".equals(genderComboBox.getSelectionModel().getSelectedItem()) ? MALE : FEMALE );
+        Student student;
+
+        try {
+            Double mark = Double.parseDouble(markTextField.getText());
+            String name = nameTextField.getText();
+            String surname = surnameTextField.getText();
+
+
+            if (name.length() == 0) {
+                nameTimeline.play();
+                return;
+            }
+
+            if (surname.length() == 0) {
+                surnameTimeline.play();
+                return;
+            }
+
+            if (mark > 10 || mark < 0)
+                throw new IllegalArgumentException();
+
+
+            student = new Student(name,
+                                surname,
+                                groupComboBox.getSelectionModel().getSelectedItem().getId(),
+                                facultyComboBox.getSelectionModel().getSelectedItem().getName(),
+                                mark,
+                                "Male".equals(genderComboBox.getSelectionModel()
+                                        .getSelectedItem()) ? MALE : FEMALE);
+
+        } catch (IllegalArgumentException e) {
+            markTimeline.play();
+            return;
+        }
 
         facultyDAO.add(student);
         closeWindow();

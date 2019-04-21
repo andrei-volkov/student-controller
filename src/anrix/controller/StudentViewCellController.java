@@ -51,7 +51,7 @@ public class StudentViewCellController extends ListCell<Student> {
             name.setText(student.name);
             surname.setText(student.surname);
             group.setText("Group: " + student.group);
-            cource.setText("Course: " + student.course);
+            cource.setText("Gender: " + student.getGender());
 
             setText(null);
             setGraphic(gridPane);

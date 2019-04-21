@@ -4,6 +4,8 @@ import anrix.model.bean.Faculty;
 import anrix.model.bean.Group;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
+import anrix.model.service.AnimationService;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,7 +34,9 @@ public class NewGroupViewController {
     @FXML
     public TextField idTextField;
 
+    private Timeline idTextFieldTimeline;
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
+    private AnimationService animationService = AnimationService.getInstance();
 
     @FXML
     private void initialize() {
@@ -46,7 +50,11 @@ public class NewGroupViewController {
             facultyLabel.setVisible(checker);
         });
 
+
         updateFaculties();
+        facultyComboBox.getSelectionModel().select(0);
+
+        idTextFieldTimeline = animationService.getIncorrectInputAnimation(idTextField);
     }
 
     public void closeButtonClicked() {
@@ -56,6 +64,11 @@ public class NewGroupViewController {
     }
 
     public void submitButtonClicked() {
+        if (idTextField.getText().length() == 0) {
+            idTextFieldTimeline.play();
+            return;
+        }
+
         switch (typeComboBox.getSelectionModel().getSelectedItem()) {
             case "Group":
                 Group group = new Group();
@@ -68,10 +81,9 @@ public class NewGroupViewController {
                         item.getChildren().add(new TreeItem<>(group.id));
                     }
                 }
-
                 facultyDAO.add(group, facultyName);
-
                 break;
+
             case "Faculty":
                 Faculty faculty = new Faculty();
                 faculty.setName(idTextField.getText());

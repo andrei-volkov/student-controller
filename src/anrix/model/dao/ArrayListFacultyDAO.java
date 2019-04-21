@@ -130,7 +130,6 @@ public class ArrayListFacultyDAO implements FacultyDAO {
                             new Student(getSaltString(),
                                         getSaltString(),
                                         group.getId(),
-                                        (new Integer((int) (Math.random() * 5))).toString(),
                                         "Someone",
                                         (Math.random() * 10),
                                         Student.GENDER.MALE));
