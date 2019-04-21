@@ -4,11 +4,17 @@ import anrix.model.bean.Student;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.MouseEvent;
+
+import java.util.Optional;
+
+import static anrix.controller.MainViewController.setRightAndGetController;
 
 public class TabPaneViewController {
     @FXML
@@ -29,6 +35,23 @@ public class TabPaneViewController {
         studentsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         studentsList.setItems(students);
 
+
+
+        studentsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Optional<StudentDetailsViewController> optional =
+                        setRightAndGetController("/views/StudentDetailsView.fxml",
+                                StudentDetailsViewController.class);
+
+                System.out.println("test");
+                if (optional.isPresent()) {
+                    StudentDetailsViewController controller = optional.get();
+                    //System.out.println(studentsList.getSelectionModel().getSelectedItem());
+                    controller.setStudent((Student) studentsList.getSelectionModel().getSelectedItem());
+                }
+            }
+        });
         MainViewController.tabContentList.add(students);
     }
 

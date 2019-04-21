@@ -16,14 +16,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static anrix.controller.MainViewController.RIGHT_WINDOW_WIDTH;
 import static anrix.controller.MainViewController.mainWindow;
 import static anrix.model.bean.Student.GENDER.FEMALE;
 import static anrix.model.bean.Student.GENDER.MALE;
 
-public class NewStudentViewController {
+public class StudentDetailsViewController {
     @FXML
     public Button closeWindowButton;
 
@@ -37,11 +39,10 @@ public class NewStudentViewController {
     public TextField markTextField;
 
     @FXML
-    public ComboBox<Group> groupComboBox;
-
+    public ComboBox<String> groupComboBox;
 
     @FXML
-    public ComboBox<Faculty> facultyComboBox;
+    public ComboBox<String> facultyComboBox;
 
     @FXML
     public ComboBox<String> genderComboBox;
@@ -53,33 +54,25 @@ public class NewStudentViewController {
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
     private AnimationService animationService = AnimationService.getInstance();
 
-    private ObservableList<Group> groups;
-    private ObservableList<Faculty> faculties;
+    private ObservableList<String> groups;
+    private ObservableList<String> faculties;
 
     @FXML
     private void initialize() {
         groups = FXCollections.observableArrayList();
         faculties = FXCollections.observableArrayList();
 
-        faculties.addAll(facultyDAO.getFaculties());
-        groups.addAll(facultyDAO.getFaculties()
-                    .stream()
-                    .filter(f -> f.getName().equals(faculties.get(0).getName()))
-                    .findFirst()
-                    .get()
-                    .getGroups());
+        faculties.addAll(facultyDAO
+                .getFaculties()
+                .stream()
+                .map(Faculty::getName)
+                .collect(Collectors.toCollection(ArrayList::new)));
+
+        updateGroupItems();
 
         facultyComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            groups.clear();
-            groups.addAll(facultyDAO.getFaculties()
-                    .stream()
-                    .filter(f -> f.getName().equals(newValue.getName()))
-                    .findFirst()
-                    .get()
-                    .getGroups());
-            groupComboBox.getSelectionModel().select(0);
+            updateGroupItems();
         });
-
 
         groupComboBox.setItems(groups);
         facultyComboBox.setItems(faculties);
@@ -125,8 +118,8 @@ public class NewStudentViewController {
 
             student = new Student(name,
                                 surname,
-                                groupComboBox.getSelectionModel().getSelectedItem().getId(),
-                                facultyComboBox.getSelectionModel().getSelectedItem().getName(),
+                                groupComboBox.getSelectionModel().getSelectedItem(),
+                                facultyComboBox.getSelectionModel().getSelectedItem(),
                                 mark,
                                 "Male".equals(genderComboBox.getSelectionModel()
                                         .getSelectedItem()) ? MALE : FEMALE);
@@ -144,5 +137,40 @@ public class NewStudentViewController {
         mainWindow.setRight(null);
         Stage stage = (Stage) mainWindow.getScene().getWindow();
         stage.setWidth(stage.getWidth() - RIGHT_WINDOW_WIDTH);
+    }
+
+    private void updateGroupItems() {
+        groups.clear();
+        groups.addAll(facultyDAO.getFaculties()
+                .stream()
+                .filter(f -> f.getName().equals(facultyComboBox
+                        .getSelectionModel().getSelectedItem()))
+                .findFirst()
+                .get()
+                .getGroups()
+                .stream()
+                .map(Group::getId)
+                .collect(Collectors.toCollection(ArrayList::new)));
+        groupComboBox.getSelectionModel().select(0);
+    }
+
+    public void setStudent(Student student) {
+        nameTextField.setText(student.name);
+        surnameTextField.setText(student.surname);
+        markTextField.setText(student.averageMark.toString());
+
+
+        int facultyIndex = faculties.indexOf(student.getFaculty());
+        System.out.println(student.getFaculty());
+        System.out.println("FACULTY" + facultyIndex);
+        facultyComboBox.getSelectionModel().select(facultyIndex);
+
+        updateGroupItems();
+
+        int groupIndex = facultyComboBox.getItems().indexOf(student.getGroup());
+        groupComboBox.getSelectionModel().select(groupIndex);
+
+
+        genderComboBox.getSelectionModel().select(student.getGender().equals(MALE) ? 0 : 1);
     }
 }

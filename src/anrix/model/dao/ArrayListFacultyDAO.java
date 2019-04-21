@@ -19,8 +19,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
         //TODO implement db after debug
 
         for (int e = 0; e < 2; e++) {
-            Faculty faculty = FacultyService.getSample();
-            faculty.setName(faculty.getName() + e);
+            Faculty faculty = FacultyService.getSample(e);
             faculties.add(faculty);
         }
 

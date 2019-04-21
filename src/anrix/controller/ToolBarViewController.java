@@ -10,16 +10,12 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import static anrix.controller.MainViewController.*;
@@ -40,8 +36,6 @@ public class ToolBarViewController {
 
     private Alert confirmRemoveAlert;
 
-    private Alert confirmNewWindowAlert;
-
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
     private FillerService fillerService = FillerService.getInstance();
 
@@ -52,15 +46,10 @@ public class ToolBarViewController {
         confirmRemoveAlert.setHeaderText("Are you sure want to remove this student(s)?");
         confirmRemoveAlert.setContentText("This action is irreversible");
 
-        confirmNewWindowAlert = new Alert(CONFIRMATION);
-        confirmNewWindowAlert.setTitle("Rewrite window");
-        confirmNewWindowAlert.setHeaderText("Right window now is open. Do you want to rewrite it?");
-        confirmNewWindowAlert.setContentText("All information will be lost ");
-
         buttonCloseSearch.setBackground(Background.EMPTY);
     }
 
-    public void removeButtonClicked(MouseEvent mouseEvent) {
+    public void removeButtonClicked() {
 
         Optional<ButtonType> result = confirmRemoveAlert.showAndWait();
         if (ButtonType.OK == result.get()){
@@ -86,11 +75,13 @@ public class ToolBarViewController {
     }
 
     public void newStudentButtonClicked(MouseEvent mouseEvent) {
-        setRightWindow("/views/NewStudentView.fxml");
+        setRightAndGetController("/views/StudentDetailsView.fxml",
+                                                    StudentDetailsViewController.class);
     }
 
     public void newGroupButtonClicked(MouseEvent mouseEvent) {
-        setRightWindow("/views/NewGroupView.fxml");
+        setRightAndGetController("/views/NewGroupView.fxml",
+                                                    NewGroupViewController.class);
     }
 
     public void clearButtonClicked(MouseEvent mouseEvent) {
@@ -150,26 +141,5 @@ public class ToolBarViewController {
         return  (ListView<Student>) currentTab.getContent();
     }
 
-    private void setRightWindow(String resourcePath) {
-        Stage stage = (Stage) mainWindow.getScene().getWindow();
 
-        if (mainWindow.getRight() != null) {
-            Optional<ButtonType> result = confirmNewWindowAlert.showAndWait();
-            if (result.get() != ButtonType.OK){
-                return;
-            }
-            stage.setWidth(stage.getWidth() - RIGHT_WINDOW_WIDTH);
-        }
-
-        stage.setWidth(stage.getWidth() + RIGHT_WINDOW_WIDTH);
-        VBox content = null;
-
-        try {
-            content = FXMLLoader.load(getClass().getResource(resourcePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        mainWindow.setRight(content);
-    }
 }
