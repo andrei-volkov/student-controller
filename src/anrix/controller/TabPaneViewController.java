@@ -35,21 +35,14 @@ public class TabPaneViewController {
         studentsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         studentsList.setItems(students);
 
+        studentsList.setOnMouseClicked(event -> {
+            Optional<StudentDetailsViewController> optional =
+                    setRightAndGetController("/views/StudentDetailsView.fxml",
+                            StudentDetailsViewController.class);
 
-
-        studentsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Optional<StudentDetailsViewController> optional =
-                        setRightAndGetController("/views/StudentDetailsView.fxml",
-                                StudentDetailsViewController.class);
-
-                System.out.println("test");
-                if (optional.isPresent()) {
-                    StudentDetailsViewController controller = optional.get();
-                    //System.out.println(studentsList.getSelectionModel().getSelectedItem());
-                    controller.setStudent((Student) studentsList.getSelectionModel().getSelectedItem());
-                }
+            if (optional.isPresent()) {
+                StudentDetailsViewController controller = optional.get();
+                controller.setStudent((Student) studentsList.getSelectionModel().getSelectedItem());
             }
         });
         MainViewController.tabContentList.add(students);

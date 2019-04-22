@@ -68,7 +68,6 @@ public class StudentDetailsViewController {
                 .map(Faculty::getName)
                 .collect(Collectors.toCollection(ArrayList::new)));
 
-        updateGroupItems();
 
         facultyComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateGroupItems();
@@ -85,6 +84,8 @@ public class StudentDetailsViewController {
         markTimeline = animationService.getIncorrectInputAnimation(markTextField);
         nameTimeline = animationService.getIncorrectInputAnimation(nameTextField);
         surnameTimeline = animationService.getIncorrectInputAnimation(surnameTextField);
+
+        updateGroupItems();
     }
 
 
@@ -141,6 +142,7 @@ public class StudentDetailsViewController {
 
     private void updateGroupItems() {
         groups.clear();
+
         groups.addAll(facultyDAO.getFaculties()
                 .stream()
                 .filter(f -> f.getName().equals(facultyComboBox
@@ -159,17 +161,13 @@ public class StudentDetailsViewController {
         surnameTextField.setText(student.surname);
         markTextField.setText(student.averageMark.toString());
 
-
         int facultyIndex = faculties.indexOf(student.getFaculty());
-        System.out.println(student.getFaculty());
-        System.out.println("FACULTY" + facultyIndex);
         facultyComboBox.getSelectionModel().select(facultyIndex);
 
         updateGroupItems();
 
-        int groupIndex = facultyComboBox.getItems().indexOf(student.getGroup());
+        int groupIndex = groupComboBox.getItems().indexOf(student.getGroup());
         groupComboBox.getSelectionModel().select(groupIndex);
-
 
         genderComboBox.getSelectionModel().select(student.getGender().equals(MALE) ? 0 : 1);
     }

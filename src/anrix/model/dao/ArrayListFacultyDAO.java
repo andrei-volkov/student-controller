@@ -110,9 +110,9 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     }
 
     private static class FacultyService {
-        public static Faculty getSample() {
+        public static Faculty getSample(int e) {
             Faculty faculty = new Faculty();
-            faculty.name = "Fkis";
+            faculty.name = "Fkis" + e;
 
             faculty.groups = new ArrayList<>();
 
@@ -129,7 +129,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
                             new Student(getSaltString(),
                                         getSaltString(),
                                         group.getId(),
-                                        "Someone",
+                                        faculty.getName(),
                                         (Math.random() * 10),
                                         Student.GENDER.MALE));
                 }
