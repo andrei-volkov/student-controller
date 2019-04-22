@@ -142,4 +142,6 @@ public class ToolBarViewController {
     }
 
 
+    public void deleteGroupButtonClicked(MouseEvent mouseEvent) {
+    }
 }

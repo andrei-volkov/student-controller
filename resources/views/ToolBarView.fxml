@@ -58,7 +58,17 @@
         </graphic>
     </Button>
 
-    <HBox AnchorPane.rightAnchor="130"
+    <Button AnchorPane.rightAnchor="130"
+            AnchorPane.topAnchor="5"
+            AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#deleteGroupButtonClicked">
+        <graphic>
+            <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                <Image  url="@../images/remove_group_icon.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <HBox AnchorPane.rightAnchor="171"
           AnchorPane.topAnchor="5"
           AnchorPane.bottomAnchor="5"
           onMouseEntered="#onFocused"
