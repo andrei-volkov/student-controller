@@ -98,6 +98,20 @@ public class ArrayListFacultyDAO implements FacultyDAO {
         faculties.add(faculty);
     }
 
+    @Override
+    public void update(Student student, String name, String surname, String group, String faculty, Double mark, Student.GENDER gender) {
+        remove(student);
+
+        student.setName(name);
+        student.setSurname(surname);
+        student.setFaculty(faculty);
+        student.setGender(gender);
+        student.setGroup(group);
+        student.setAverageMark(mark);
+
+        add(student);
+    }
+
     public static synchronized FacultyDAO getInstance() {
         if (instance == null) {
             instance = new ArrayListFacultyDAO();
@@ -122,8 +136,6 @@ public class ArrayListFacultyDAO implements FacultyDAO {
                 group.id =  Long.toString(Math.round(Math.random() * 1000000));
                 group.students = new ArrayList<>();
 
-
-
                 for (int b = 0; b < 10; b++) {
                     group.students.add(
                             new Student(getSaltString(),
@@ -143,7 +155,7 @@ public class ArrayListFacultyDAO implements FacultyDAO {
             String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             StringBuilder salt = new StringBuilder();
             Random rnd = new Random();
-            while (salt.length() < 18) { // length of the random string.
+            while (salt.length() < 18) {
                 int index = (int) (rnd.nextFloat() * SALTCHARS.length());
                 salt.append(SALTCHARS.charAt(index));
             }

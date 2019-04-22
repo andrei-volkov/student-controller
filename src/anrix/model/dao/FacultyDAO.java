@@ -18,4 +18,6 @@ public interface FacultyDAO {
     void add(Student student);
     void add(Group group, String facultyName);
     void add(Faculty faculty);
+
+    void update(Student student, String name, String surname, String group, String faculty, Double mark, Student.GENDER gender);
 }

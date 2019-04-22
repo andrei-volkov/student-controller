@@ -3,9 +3,11 @@ package anrix.controller;
 import anrix.model.bean.Faculty;
 import anrix.model.bean.Group;
 import anrix.model.bean.Student;
+import anrix.model.bean.Student.GENDER;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
 import anrix.model.service.AnimationService;
+import com.jfoenix.controls.JFXButton;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,6 +49,9 @@ public class StudentDetailsViewController {
     @FXML
     public ComboBox<String> genderComboBox;
 
+    @FXML
+    public JFXButton submitButton;
+
     private Timeline markTimeline;
     private Timeline nameTimeline;
     private Timeline surnameTimeline;
@@ -56,6 +61,8 @@ public class StudentDetailsViewController {
 
     private ObservableList<String> groups;
     private ObservableList<String> faculties;
+
+    private Student student;
 
     @FXML
     private void initialize() {
@@ -99,9 +106,14 @@ public class StudentDetailsViewController {
 
         try {
             Double mark = Double.parseDouble(markTextField.getText());
+
             String name = nameTextField.getText();
             String surname = surnameTextField.getText();
+            String group = groupComboBox.getSelectionModel().getSelectedItem();
+            String faculty = facultyComboBox.getSelectionModel().getSelectedItem();
 
+            GENDER gender = "Male".equals(genderComboBox.getSelectionModel()
+                    .getSelectedItem()) ? MALE : FEMALE;
 
             if (name.length() == 0) {
                 nameTimeline.play();
@@ -117,20 +129,30 @@ public class StudentDetailsViewController {
                 throw new IllegalArgumentException();
 
 
-            student = new Student(name,
-                                surname,
-                                groupComboBox.getSelectionModel().getSelectedItem(),
-                                facultyComboBox.getSelectionModel().getSelectedItem(),
-                                mark,
-                                "Male".equals(genderComboBox.getSelectionModel()
-                                        .getSelectedItem()) ? MALE : FEMALE);
+            if ("Save".equals(submitButton.getText())) {
+                student = new Student(name,
+                        surname,
+                        group,
+                        faculty,
+                        mark,
+                        gender
+                        );
+                facultyDAO.add(student);
+            } else {
+                facultyDAO.update(this.student,
+                        name,
+                        surname,
+                        group,
+                        faculty,
+                        mark,
+                        gender);
+            }
 
         } catch (IllegalArgumentException e) {
             markTimeline.play();
             return;
         }
 
-        facultyDAO.add(student);
         closeWindow();
     }
 
@@ -157,6 +179,10 @@ public class StudentDetailsViewController {
     }
 
     public void setStudent(Student student) {
+        this.student = student;
+
+        submitButton.setText("Update");
+
         nameTextField.setText(student.name);
         surnameTextField.setText(student.surname);
         markTextField.setText(student.averageMark.toString());
@@ -171,4 +197,5 @@ public class StudentDetailsViewController {
 
         genderComboBox.getSelectionModel().select(student.getGender().equals(MALE) ? 0 : 1);
     }
+
 }

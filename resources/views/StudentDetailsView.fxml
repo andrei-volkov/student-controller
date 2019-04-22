@@ -57,6 +57,7 @@
             <Region HBox.hgrow="ALWAYS"/>
 
             <JFXButton text="Save"
+                    fx:id="submitButton"
                     prefWidth="100"
                     onMouseClicked="#submitButtonClicked"
                     prefHeight="40"

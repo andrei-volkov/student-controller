@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.util.Optional;
+
 import static anrix.controller.MainViewController.mainTabPane;
+import static anrix.controller.MainViewController.setRightAndGetController;
 
 public class TreeViewController {
 
@@ -45,8 +48,8 @@ public class TreeViewController {
             if ("All students".equals(newValue.getValue())) {
                 studentsList.addAll(facultyDAO.toStudentList());
                     tab.setText("All students");
-            }
-            else if (groupsTree.getRoot().getChildren().indexOf(newValue) != -1) {
+
+            } else if (groupsTree.getRoot().getChildren().indexOf(newValue) != -1) {
                Faculty faculty =  fillerService.findFaculty(facultyDAO.getFaculties(), newValue.getValue());
 
                faculty.groups
@@ -67,6 +70,17 @@ public class TreeViewController {
             list.setCellFactory(studentListView -> new StudentViewCellController());
             list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             list.setItems(studentsList);
+
+            list.setOnMouseClicked(event -> {
+                Optional<StudentDetailsViewController> optional =
+                        setRightAndGetController("/views/StudentDetailsView.fxml",
+                                StudentDetailsViewController.class);
+
+                if (optional.isPresent()) {
+                    StudentDetailsViewController controller = optional.get();
+                    controller.setStudent((Student) list.getSelectionModel().getSelectedItem());
+                }
+            });
 
             mainTabPane.getTabs().add(tab);
 
