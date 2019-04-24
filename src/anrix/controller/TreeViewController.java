@@ -8,6 +8,8 @@ import anrix.model.dao.FacultyDAO;
 import anrix.model.service.FillerService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -55,13 +57,13 @@ public class TreeViewController {
                faculty.groups
                        .forEach(g -> studentsList.addAll(g.students));
 
-               tab.setText(faculty.name);
+               tab.setText("F:" + faculty.name);
             } else {
                 Group group = fillerService
                         .findGroup(facultyDAO.getFaculties(), newValue.getValue());
 
                 studentsList.addAll(group.students);
-                tab.setText(group.id);
+                tab.setText("G:" + group.id);
             }
 
             MainViewController.tabContentList.add(FXCollections.observableArrayList(studentsList));
@@ -78,7 +80,7 @@ public class TreeViewController {
 
                 if (optional.isPresent()) {
                     StudentDetailsViewController controller = optional.get();
-                    controller.setStudent((Student) list.getSelectionModel().getSelectedItem());
+                    controller.setStudent(list.getSelectionModel().getSelectedItem());
                 }
             });
 
@@ -91,7 +93,7 @@ public class TreeViewController {
                 MainViewController
                         .tabContentList
                         .remove(mainTabPane.getTabs().indexOf(temp));
-            });
+                });
         });
     }
 }

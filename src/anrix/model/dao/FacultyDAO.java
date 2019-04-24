@@ -9,15 +9,18 @@ public interface FacultyDAO {
     ObservableList<Faculty> getFaculties();
     ObservableList<Student> toStudentList();
 
-    void setFaculties(ObservableList<Faculty> faculties);
-
     void remove(Student student);
-    void remove(Group group);
-    void remove(Faculty faculty);
+    void removeGroup(String id);
+    void removeFaculty(String name);
 
     void add(Student student);
     void add(Group group, String facultyName);
     void add(Faculty faculty);
+
+
+    boolean contains(Student student);
+    boolean contains(Group group);
+    boolean contains(Faculty faculty);
 
     void update(Student student, String name, String surname, String group, String faculty, Double mark, Student.GENDER gender);
 }

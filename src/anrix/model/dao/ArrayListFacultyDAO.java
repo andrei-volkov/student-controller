@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ArrayListFacultyDAO implements FacultyDAO {
 
@@ -35,11 +36,6 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     }
 
     @Override
-    public synchronized void setFaculties(ObservableList<Faculty> faculties) {
-        this.faculties = faculties;
-    }
-
-    @Override
     public synchronized void remove(Student student) {
         boolean checker = false;
         for (Faculty f : faculties) {
@@ -57,14 +53,37 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     }
 
     @Override
-    public synchronized void remove(Group group) {
+    public synchronized void removeGroup(String id) {
+        boolean checker = false;
 
-        throw new UnsupportedOperationException();
+        for (Faculty faculty : faculties) {
+            for (Group group : faculty.getGroups()) {
+                if (id.equals(group.id)) {
+                    faculty.getGroups().remove(group);
+                    checker = true;
+                    break;
+                }
+            }
+            if (checker)
+                break;
+        }
+
+        students = students.stream()
+                           .filter(s -> !s.getGroup().equals(id))
+                           .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
     @Override
-    public synchronized void remove(Faculty faculty) {
-        throw new UnsupportedOperationException();
+    public synchronized void removeFaculty(String name) {
+        for (Faculty faculty : faculties) {
+            if (name.equals(faculty.getName())) {
+                faculties.remove(faculty);
+            }
+        }
+        students = students.stream()
+                .filter(s -> !s.getFaculty().equals(name))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
     }
 
     @Override
@@ -96,6 +115,21 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     @Override
     public void add(Faculty faculty) {
         faculties.add(faculty);
+    }
+
+    @Override
+    public boolean contains(Student student) {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Group group) {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Faculty faculty) {
+        return false;
     }
 
     @Override

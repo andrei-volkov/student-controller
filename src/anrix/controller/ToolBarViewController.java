@@ -9,6 +9,10 @@ import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -19,6 +23,7 @@ import javafx.scene.layout.Background;
 import java.util.Optional;
 
 import static anrix.controller.MainViewController.*;
+import static javafx.scene.control.Alert.AlertType.*;
 import static javafx.scene.control.Alert.AlertType.CONFIRMATION;
 
 public class ToolBarViewController {
@@ -26,7 +31,7 @@ public class ToolBarViewController {
     public AnchorPane anchorPane;
 
     @FXML
-    public Button buttonCloseSearch;
+    public Button buttonClearSearch;
 
     @FXML
     public JFXNodesList filterNodeList;
@@ -34,24 +39,38 @@ public class ToolBarViewController {
     @FXML
     private JFXTextField fieldSearch;
 
-    private Alert confirmRemoveAlert;
+    private Alert removeStudentsAlert;
+    private Alert removeGroupAlert;
+    private Alert warningAlert;
+
 
     private FacultyDAO facultyDAO = ArrayListFacultyDAO.getInstance();
     private FillerService fillerService = FillerService.getInstance();
 
     @FXML
     public void initialize() {
-        confirmRemoveAlert = new Alert(CONFIRMATION);
-        confirmRemoveAlert.setTitle("Delete student(s)");
-        confirmRemoveAlert.setHeaderText("Are you sure want to remove this student(s)?");
-        confirmRemoveAlert.setContentText("This action is irreversible");
+        removeStudentsAlert = new Alert(CONFIRMATION);
+        removeStudentsAlert.setTitle("Delete student(s)");
+        removeStudentsAlert.setHeaderText("Are you sure want to remove this student(s)?");
+        removeStudentsAlert.setContentText("This action is irreversible");
 
-        buttonCloseSearch.setBackground(Background.EMPTY);
+
+        removeGroupAlert = new Alert(CONFIRMATION);
+        removeGroupAlert.setTitle("Delete group/faculty");
+        removeGroupAlert.setHeaderText("Are you sure want to remove this group/faculty?");
+        removeGroupAlert.setContentText("This action is irreversible");
+
+        warningAlert = new Alert(ERROR);
+        warningAlert.setTitle("Error");
+        warningAlert.setHeaderText(null);
+        warningAlert.setContentText("I can't delete all students");
+
+        buttonClearSearch.setBackground(Background.EMPTY);
     }
 
     public void removeButtonClicked() {
 
-        Optional<ButtonType> result = confirmRemoveAlert.showAndWait();
+        Optional<ButtonType> result = removeStudentsAlert.showAndWait();
         if (ButtonType.OK == result.get()){
             int selectedIndex = mainTabPane.getSelectionModel().getSelectedIndex();
 
@@ -143,5 +162,59 @@ public class ToolBarViewController {
 
 
     public void deleteGroupButtonClicked(MouseEvent mouseEvent) {
+
+        Optional<ButtonType> result = removeGroupAlert.showAndWait();
+
+        if (ButtonType.OK == result.get()){
+            int currentTabIndex = mainTabPane.getSelectionModel().getSelectedIndex();
+
+            String currentName = mainTabPane.getTabs().get(currentTabIndex).getText();
+            String id = currentName.substring(2);
+
+            if ("All students".equals(currentName)) {
+                warningAlert.showAndWait();
+                return;
+            }
+
+            Tab currentTab = mainTabPane
+                    .getTabs()
+                    .get(currentTabIndex);
+
+
+            if (currentName.startsWith("G")) {
+                facultyDAO.removeGroup(id);
+            } else {
+                facultyDAO.removeFaculty(id);
+            }
+
+            EventHandler<Event> handler = currentTab.getOnCloseRequest();
+
+            handler.handle(new Event(EventType.ROOT) {
+                @Override
+                public EventTarget getSource() {
+                    return currentTab;
+                }
+            });
+
+            mainTabPane.getTabs().remove(currentTab);
+
+            if (currentName.startsWith("F")) {
+                for (TreeItem<String> item : mainGroupsTree.getRoot().getChildren()) {
+                    if (id.equals(item.getValue())) {
+                        mainGroupsTree.getRoot().getChildren().remove(item);
+                        return;
+                    }
+                }
+            } else {
+                for (TreeItem<String> item : mainGroupsTree.getRoot().getChildren()) {
+                    for (TreeItem<String> subitem : item.getChildren())
+                        if (id.equals(subitem.getValue())) {
+                            item.getChildren().remove(subitem);
+                            System.out.println("deleted");
+                            return;
+                        }
+                }
+            }
+        }
     }
 }

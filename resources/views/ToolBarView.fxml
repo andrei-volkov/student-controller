@@ -11,7 +11,7 @@
         fx:id="anchorPane"
         fx:controller="anrix.controller.ToolBarViewController">
 
-    <Button fx:id="buttonCloseSearch"
+    <Button fx:id="buttonClearSearch"
             AnchorPane.leftAnchor="0"
             AnchorPane.bottomAnchor="4"
             onMouseClicked="#clearButtonClicked">
