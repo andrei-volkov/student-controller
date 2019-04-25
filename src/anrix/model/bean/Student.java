@@ -86,13 +86,16 @@ public class Student implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return Double.compare(student.averageMark, averageMark) == 0 &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(surname, student.surname);
+        return Objects.equals(getName(), student.getName()) &&
+                Objects.equals(getSurname(), student.getSurname()) &&
+                Objects.equals(getGroup(), student.getGroup()) &&
+                Objects.equals(getFaculty(), student.getFaculty()) &&
+                Objects.equals(getAverageMark(), student.getAverageMark()) &&
+                getGender() == student.getGender();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, averageMark);
+        return Objects.hash(getName(), getSurname(), getGroup(), getFaculty(), getAverageMark(), getGender());
     }
 }

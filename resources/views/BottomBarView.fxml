@@ -11,7 +11,7 @@
           prefHeight="18" maxHeight="18"
           fx:id="pane">
 
-    <Button fx:id="chartButton">
+    <Button fx:id="chartButton" onAction="#chartButtonClicked">
         <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
                 <Image requestedHeight="18" requestedWidth="18" url="@../images/chart.png"/>

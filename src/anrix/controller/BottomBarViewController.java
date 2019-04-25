@@ -39,7 +39,6 @@ public class BottomBarViewController {
         warningAlert = new Alert(ERROR);
         warningAlert.setTitle("Error");
         warningAlert.setHeaderText(null);
-        warningAlert.setContentText("The schedule is available only for groups");
 
     }
 
@@ -52,6 +51,7 @@ public class BottomBarViewController {
         String id = currentName.substring(2);
 
         if (!currentName.startsWith("G")) {
+            warningAlert.setContentText("The schedule is available only for groups");
             warningAlert.showAndWait();
             return;
         }
@@ -65,6 +65,37 @@ public class BottomBarViewController {
             ScheduleViewController controller = loader.getController();
             stage.show();
             controller.setURL("https://iis.bsuir.by/#/schedule;groupName=" + id);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void chartButtonClicked(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+
+        int currentTabIndex = mainTabPane.getSelectionModel().getSelectedIndex();
+
+        String currentName = mainTabPane.getTabs().get(currentTabIndex).getText();
+        String id = currentName.substring(2);
+
+        if (currentName.startsWith("G")) {
+            warningAlert.setContentText("The chart is available only " +
+                    "for faculties and all students");
+            warningAlert.showAndWait();
+            return;
+        }
+        stage.setTitle(currentName);
+
+        FXMLLoader loader = new FXMLLoader(BottomBarViewController
+                .class.getResource("/views/ChartView.fxml"));
+
+        try {
+
+            stage.setScene(new Scene(loader.load(), 600, 500));
+            ChartViewController controller = loader.getController();
+            stage.show();
+            controller.setContent(MainViewController.tabContentList.get(currentTabIndex));
 
         } catch (IOException e) {
             e.printStackTrace();

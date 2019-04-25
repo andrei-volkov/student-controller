@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<LineChart xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="anrix.controller.ChartViewController"
+
+           prefWidth="600" prefHeight="500"
+           fx:id="lineChart">
+
+    <xAxis>
+        <CategoryAxis fx:id="xAxis"/>
+    </xAxis>
+
+    <yAxis>
+        <NumberAxis fx:id="yAxis"/>
+    </yAxis>
+
+</LineChart>
