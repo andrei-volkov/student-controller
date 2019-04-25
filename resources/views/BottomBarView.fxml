@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+
+<FlowPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="anrix.controller.BottomBarViewController"
+          prefHeight="18" maxHeight="18"
+          fx:id="pane">
+
+    <Button fx:id="chartButton">
+        <graphic>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+                <Image requestedHeight="18" requestedWidth="18" url="@../images/chart.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <Button fx:id="scheduleButton" onAction="#scheduleButtonClicked">
+        <graphic>
+            <ImageView pickOnBounds="true" preserveRatio="true">
+                <Image requestedHeight="18" requestedWidth="18" url="@../images/schedule_icon.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+
+</FlowPane>

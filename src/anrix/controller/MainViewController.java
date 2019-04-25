@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -20,6 +21,9 @@ import static javafx.scene.control.Alert.AlertType.CONFIRMATION;
 public class MainViewController {
     @FXML
     public MenuBar menuBar;
+
+    @FXML
+    public FlowPane bottomBar;
 
     @FXML
     private AnchorPane toolBar;
