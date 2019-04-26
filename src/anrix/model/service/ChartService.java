@@ -29,8 +29,6 @@ public class ChartService {
             }
         }
 
-
         return result;
     }
-
 }

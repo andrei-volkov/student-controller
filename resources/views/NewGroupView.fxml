@@ -39,8 +39,6 @@
             <Label text="Faculty" GridPane.columnIndex="0" GridPane.rowIndex="2"
                    fx:id="facultyLabel" visible="false"/>
 
-<!--            <ComboBox fx:id="courseComboBox"  GridPane.columnIndex="1" GridPane.rowIndex="2"/>-->
-
             <ComboBox fx:id="typeComboBox" prefWidth="180"  GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <TextField fx:id="idTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <ComboBox fx:id="facultyComboBox" visible="false" prefWidth="180"  GridPane.columnIndex="1" GridPane.rowIndex="2"/>

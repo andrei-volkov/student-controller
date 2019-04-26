@@ -1,6 +1,7 @@
 package anrix.model.bean;
 
 import java.io.Serializable;
+import java.util.Formatter;
 import java.util.Objects;
 
 public class Student implements Serializable {
@@ -59,12 +60,28 @@ public class Student implements Serializable {
         this.gender = gender;
     }
 
+    public String getId() {return getName() + getSurname() + getGroup() + getFaculty()
+            + getAverageMark() + getAverageMark() + getGender().toString();}
+
     public enum GENDER {
         MALE,
         FEMALE
+
     }
 
     public Student() {}
+
+    @Override
+    public String toString() {
+        return String.format("VALUES ('%s', '%s', '%s', '%s', %f, '%s', '%s'",
+                    getName(),
+                    getSurname(),
+                    getGroup(),
+                    getFaculty(),
+                    getAverageMark(),
+                    getGender().toString(),
+                    getId());
+     }
 
     public Student(String name, String surname, String group, String faculty, Double averageMark, GENDER gender) {
         this.name = name;

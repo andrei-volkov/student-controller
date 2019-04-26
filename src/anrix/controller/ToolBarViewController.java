@@ -210,7 +210,6 @@ public class ToolBarViewController {
                     for (TreeItem<String> subitem : item.getChildren())
                         if (id.equals(subitem.getValue())) {
                             item.getChildren().remove(subitem);
-                            System.out.println("deleted");
                             return;
                         }
                 }

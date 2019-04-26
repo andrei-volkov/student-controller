@@ -1,3 +1,4 @@
+import anrix.model.service.DatabaseService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +17,9 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         BorderPane a = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
         Scene scene = new Scene(a);
+
+        //DatabaseService.getInstance().crateTable();
+        DatabaseService.getInstance().crateTable();
 
         stage.setTitle("Student controller");
         stage.setScene(scene);
