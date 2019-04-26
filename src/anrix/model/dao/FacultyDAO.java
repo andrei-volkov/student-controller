@@ -17,7 +17,6 @@ public interface FacultyDAO {
     void add(Group group, String facultyName);
     void add(Faculty faculty);
 
-
     boolean contains(Student student);
     boolean contains(Group group);
     boolean contains(Faculty faculty);

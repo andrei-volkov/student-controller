@@ -10,6 +10,10 @@ public class Faculty implements Serializable {
 
     public Faculty() {}
 
+    public Faculty(String name) {
+        this.name = name;
+    }
+
     public ArrayList<Group> getGroups() {
         return groups;
     }
@@ -21,6 +25,7 @@ public class Faculty implements Serializable {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }

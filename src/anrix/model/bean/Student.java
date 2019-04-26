@@ -71,18 +71,6 @@ public class Student implements Serializable {
 
     public Student() {}
 
-    @Override
-    public String toString() {
-        return String.format("VALUES ('%s', '%s', '%s', '%s', %f, '%s', '%s'",
-                    getName(),
-                    getSurname(),
-                    getGroup(),
-                    getFaculty(),
-                    getAverageMark(),
-                    getGender().toString(),
-                    getId());
-     }
-
     public Student(String name, String surname, String group, String faculty, Double averageMark, GENDER gender) {
         this.name = name;
         this.surname = surname;
@@ -96,6 +84,18 @@ public class Student implements Serializable {
         this.name = name;
         this.surname = surname;
         this.averageMark = averageMark;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("VALUES ('%s', '%s', '%s', '%s', %f, '%s', '%s'",
+                getName(),
+                getSurname(),
+                getGroup(),
+                getFaculty(),
+                getAverageMark(),
+                getGender().toString(),
+                getId());
     }
 
     @Override

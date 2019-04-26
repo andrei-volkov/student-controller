@@ -3,6 +3,7 @@ package anrix.model.dao;
 import anrix.model.bean.Faculty;
 import anrix.model.bean.Group;
 import anrix.model.bean.Student;
+import anrix.model.service.DatabaseService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,19 +17,9 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     private ObservableList<Faculty> faculties = FXCollections.observableArrayList();
     private ObservableList<Student> students = FXCollections.observableArrayList();
 
-    private ArrayListFacultyDAO() {
-        //TODO implement db after debug
+    private DatabaseService databaseService = DatabaseService.getInstance();
 
-        for (int e = 0; e < 2; e++) {
-            Faculty faculty = FacultyService.getSample(e);
-            faculties.add(faculty);
-        }
-
-        getFaculties()
-                .forEach(e -> e.groups
-                        .forEach(a -> students.addAll(a.students)));
-
-    }
+    private ArrayListFacultyDAO() { }
 
     @Override
     public synchronized ObservableList<Faculty> getFaculties() {
@@ -94,6 +85,10 @@ public class ArrayListFacultyDAO implements FacultyDAO {
             for (Group group : f.groups) {
                 if (group.id.equals(groupNumber)) {
                     group.getStudents().add(student);
+
+//                   if (!databaseService.contains(student)) {
+//                        System.out.println("asdasdaasd");
+//                    }
                 }
             }
         }
