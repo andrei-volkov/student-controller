@@ -15,14 +15,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        DatabaseService databaseService = DatabaseService.getInstance();
-
-        databaseService.initialize();
+        DatabaseService.getInstance().initialize();
 
         BorderPane a = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
         Scene scene = new Scene(a);
-
-        //DatabaseService.getInstance().crateTable();
 
         stage.setTitle("Student controller");
         stage.setScene(scene);

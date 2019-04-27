@@ -66,11 +66,14 @@ public class ArrayListFacultyDAO implements FacultyDAO {
 
     @Override
     public synchronized void removeFaculty(String name) {
+        Faculty temp = null;
         for (Faculty faculty : faculties) {
             if (name.equals(faculty.getName())) {
-                faculties.remove(faculty);
+                temp = faculty;
             }
         }
+        faculties.remove(temp);
+
         students = students.stream()
                 .filter(s -> !s.getFaculty().equals(name))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
@@ -85,10 +88,6 @@ public class ArrayListFacultyDAO implements FacultyDAO {
             for (Group group : f.groups) {
                 if (group.id.equals(groupNumber)) {
                     group.getStudents().add(student);
-
-//                   if (!databaseService.contains(student)) {
-//                        System.out.println("asdasdaasd");
-//                    }
                 }
             }
         }
@@ -151,46 +150,4 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     public ObservableList<Student> toStudentList() {
         return students;
     }
-
-    private static class FacultyService {
-        public static Faculty getSample(int e) {
-            Faculty faculty = new Faculty();
-            faculty.name = "Fkis" + e;
-
-            faculty.groups = new ArrayList<>();
-
-            for (char a : "abcdef".toCharArray()) {
-                Group group = new Group();
-                group.course =  a - '0';
-                group.id =  Long.toString(Math.round(Math.random() * 1000000));
-                group.students = new ArrayList<>();
-
-                for (int b = 0; b < 10; b++) {
-                    group.students.add(
-                            new Student(getSaltString(),
-                                        getSaltString(),
-                                        group.getId(),
-                                        faculty.getName(),
-                                        (Math.random() * 10),
-                                        Student.GENDER.MALE));
-                }
-                faculty.groups.add(group);
-            }
-            return faculty;
-        }
-
-        @Deprecated
-        private static String getSaltString() {
-            String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            StringBuilder salt = new StringBuilder();
-            Random rnd = new Random();
-            while (salt.length() < 18) {
-                int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-                salt.append(SALTCHARS.charAt(index));
-            }
-            return salt.toString();
-
-        }
-    }
-
 }
