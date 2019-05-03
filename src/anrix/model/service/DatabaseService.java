@@ -16,11 +16,12 @@ public class DatabaseService {
     private static final String DB_Driver = "org.h2.Driver";
     private static final String DB_URL = "jdbc:h2:./students";
 
-
     private FacultyDAO facultyDAO;
 
     private Connection connection;
     private Statement statement;
+
+    public static boolean isAvailable = true;
 
     private static final String INSERT_COMAND = "INSERT INTO Registration ";
     private static final String SELECT_COMAND = "SELECT name, surname, groupID, " +
@@ -46,10 +47,12 @@ public class DatabaseService {
     }
 
     public void initialize() throws SQLException {
+        isAvailable = false;
         facultyDAO = ArrayListFacultyDAO.getInstance();
         initializeFaculties();
         initializeGroups();
         initializeStudents();
+        isAvailable = true;
     }
 
     private void initializeFaculties() throws SQLException {

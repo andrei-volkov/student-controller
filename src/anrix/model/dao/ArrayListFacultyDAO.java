@@ -88,6 +88,9 @@ public class ArrayListFacultyDAO implements FacultyDAO {
             for (Group group : f.groups) {
                 if (group.id.equals(groupNumber)) {
                     group.getStudents().add(student);
+                    if (DatabaseService.isAvailable) {
+                        databaseService.add(student);
+                    }
                 }
             }
         }
