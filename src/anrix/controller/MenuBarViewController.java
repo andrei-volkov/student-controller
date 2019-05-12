@@ -1,6 +1,5 @@
 package anrix.controller;
 
-import anrix.model.service.DatabaseService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +11,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class MenuBarViewController {
     @FXML
@@ -23,12 +22,10 @@ public class MenuBarViewController {
     @FXML
     public Menu fileMenu;
 
-    public void fileMenuItemClicked(ActionEvent actionEvent) {
+    public void fileMenuItemClicked(ActionEvent actionEvent) throws IOException {
         MenuItem clickedItem = (MenuItem) actionEvent.getSource();
 
         switch (clickedItem.getText()) {
-            case "New db":
-                break;
             case "Import db":
                 StackPane stackPane;
                 try {
@@ -44,11 +41,18 @@ public class MenuBarViewController {
                     e.printStackTrace();
                 }
                 break;
-            case "Save":
+            case "Export db":
+                final DirectoryChooser directoryChooser = new DirectoryChooser();
+                File file = directoryChooser.showDialog(menuBar.getScene().getWindow());
 
+                if(file != null) {
+                    String pathToCopy = file.getAbsolutePath() + "/students.mv.db";
 
-                break;
-            case "Save as...":
+                    File source = new File("./students.mv.db");
+                    File newFile = new File(pathToCopy);
+
+                    Files.copy(source.toPath(), newFile.toPath());
+                }
                 break;
             case "Exit":
                 System.exit(0);

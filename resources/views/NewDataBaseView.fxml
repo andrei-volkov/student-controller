@@ -12,5 +12,5 @@
 
     <Label StackPane.alignment="CENTER" fx:id="label" text="Drop database here" />
 
-    <Button text="Open" fx:id="openButton" StackPane.alignment="BOTTOM_CENTER"/>
+    <Button text="or just open" fx:id="openButton" StackPane.alignment="BOTTOM_CENTER"/>
 </StackPane>

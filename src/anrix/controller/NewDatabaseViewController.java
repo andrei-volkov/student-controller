@@ -53,7 +53,7 @@ public class NewDatabaseViewController {
 
             File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-            if (selectedFile.getAbsolutePath() != null) {
+            if (null != selectedFile) {
                 openDatabase(selectedFile.getAbsolutePath());
             }
         }
