@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class DatabaseService {
 
@@ -25,9 +26,9 @@ public class DatabaseService {
 
     private static final String INSERT_COMMAND = "INSERT INTO Registration ";
     private static final String SELECT_COMMAND = "SELECT name, surname, groupID, " +
-                                                "faculty, mark, gender, hash " +
+                                                "faculty, mark, gender, uuid " +
                                                 "FROM Registration";
-    private static final String REMOVE_COMMAND = "DELETE FROM Registration WHERE hash = ";
+    private static final String REMOVE_COMMAND = "DELETE FROM Registration WHERE uuid = ";
 
 
     private static volatile DatabaseService instance;
@@ -121,13 +122,15 @@ public class DatabaseService {
             String groupName = rs.getString("groupID");
             String facultyName = rs.getString("faculty");
 
+            String uuid = rs.getString("uuid");
+
             Double mark = Double.parseDouble(rs.getString("mark"));
             Student.GENDER gender = "MALE".equals(rs.getString("gender")) ?
                                     Student.GENDER.MALE : Student.GENDER.FEMALE;
 
             Student student = new Student(name, surname,
                                           groupName, facultyName,
-                                          mark, gender);
+                                          mark, gender, uuid);
 
             facultyDAO.add(student);
          }
@@ -146,8 +149,8 @@ public class DatabaseService {
         isAvailable = false;
 
         try {
-            System.out.println(REMOVE_COMMAND + student.getId());
-            statement.executeUpdate(REMOVE_COMMAND + student.getId() + ";");
+            statement.executeUpdate(REMOVE_COMMAND +
+                    "'" + student.getId() + "'");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -155,34 +158,21 @@ public class DatabaseService {
         isAvailable = true;
     }
 
-   public boolean contains(Student student) {
-       String command = "SELECT name FROM Registration "
-               + "WHERE id = " + student.getId();
-
-       try {
-           ResultSet rs = statement.executeQuery(command);
-           return rs.next();
-       } catch (SQLException e) {
-           return false;
-       }
-   }
-
-
     public void crateTable() {
         try {
             Class.forName(DB_Driver);
             connection = DriverManager.getConnection(DB_URL);
             statement = connection.createStatement();
 
-            String sql =  "CREATE TABLE   REGISTRATION " +
+            String sql = "CREATE TABLE   REGISTRATION " +
                     "(name VARCHAR(255), " +
                     " surname VARCHAR(255), " +
                     " groupID VARCHAR(255), " +
                     " faculty VARCHAR(255), " +
                     " mark DOUBLE, " +
                     " gender VARCHAR(10), " +
-                    " hash VARCHAR(10), " +
-                    " PRIMARY KEY ( hash ))";
+                    " uuid VARCHAR(36), " +
+                    " PRIMARY KEY ( uuid ))";
             statement.executeUpdate(sql);
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -235,10 +225,10 @@ public class DatabaseService {
                     Student.GENDER.MALE : Student.GENDER.FEMALE;
 
 
-
             Student student = new Student(name, surname,
                     groupName, facultyName,
-                    mark, gender);
+                    mark, gender,
+                    UUIDService.getUUID());
 
             facultyDAO.add(student);
         }

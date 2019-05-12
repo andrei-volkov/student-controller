@@ -7,6 +7,7 @@ import anrix.model.bean.Student.GENDER;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
 import anrix.model.service.AnimationService;
+import anrix.model.service.UUIDService;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -76,9 +77,7 @@ public class StudentDetailsViewController {
                 .collect(Collectors.toCollection(ArrayList::new)));
 
 
-        facultyComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            updateGroupItems();
-        });
+        facultyComboBox.valueProperty().addListener((observable, oldValue, newValue) -> updateGroupItems());
 
         groupComboBox.setItems(groups);
         facultyComboBox.setItems(faculties);
@@ -135,8 +134,8 @@ public class StudentDetailsViewController {
                         group,
                         faculty,
                         mark,
-                        gender
-                        );
+                        gender,
+                        UUIDService.getUUID());
                 facultyDAO.add(student);
             } else {
                 facultyDAO.update(this.student,

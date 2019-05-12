@@ -1,7 +1,6 @@
 package anrix.model.bean;
 
 import java.io.Serializable;
-import java.util.Formatter;
 import java.util.Objects;
 
 public class Student implements Serializable {
@@ -11,6 +10,7 @@ public class Student implements Serializable {
     public String faculty;
     public Double averageMark;
     public GENDER gender;
+    public String id;
 
     public String getFaculty() {
         return faculty;
@@ -60,35 +60,30 @@ public class Student implements Serializable {
         this.gender = gender;
     }
 
-    public String getId() {return getName() + getSurname() + getGroup() + getFaculty()
-            + getAverageMark() + getAverageMark() + getGender().toString();}
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public enum GENDER {
         MALE,
         FEMALE
-
     }
 
     public Student() {}
 
-    public Student(String name, String surname, String group, String faculty, Double averageMark, GENDER gender) {
+    public Student(String name, String surname, String group, String faculty, Double averageMark, GENDER gender, String id) {
         this.name = name;
         this.surname = surname;
         this.group = group;
         this.faculty = faculty;
         this.averageMark = averageMark;
         this.gender = gender;
-    }
-
-    public Student(String name, String surname, double averageMark) {
-        this.name = name;
-        this.surname = surname;
-        this.averageMark = averageMark;
+        this.id = id;
     }
 
     @Override
     public String toString() {
-        return String.format("VALUES ('%s', '%s', '%s', '%s', %f, '%s', '%s'",
+        return String.format("VALUES ('%s', '%s', '%s', '%s', %f, '%s', '%s')",
                 getName(),
                 getSurname(),
                 getGroup(),
@@ -108,11 +103,12 @@ public class Student implements Serializable {
                 Objects.equals(getGroup(), student.getGroup()) &&
                 Objects.equals(getFaculty(), student.getFaculty()) &&
                 Objects.equals(getAverageMark(), student.getAverageMark()) &&
-                getGender() == student.getGender();
+                getGender() == student.getGender() &&
+                Objects.equals(getId(), student.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getSurname(), getGroup(), getFaculty(), getAverageMark(), getGender());
+        return Objects.hash(getName(), getSurname(), getGroup(), getFaculty(), getAverageMark(), getGender(), getId());
     }
 }
