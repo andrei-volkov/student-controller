@@ -23,7 +23,7 @@
     <HBox>
         <Region HBox.hgrow="ALWAYS"/>
         <ImageView cache="true" fitHeight="86" fitWidth="86" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../images/b_group_icon.png"/>
+            <Image url="@../images/group.png"/>
         </ImageView>
         <Region HBox.hgrow="ALWAYS"/>
     </HBox>

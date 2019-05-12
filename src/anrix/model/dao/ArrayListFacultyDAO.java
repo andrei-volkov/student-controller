@@ -36,11 +36,12 @@ public class ArrayListFacultyDAO implements FacultyDAO {
                     checker = true;
                     break;
                 }
-                if (checker)
-                    break;
             }
+            if (checker)
+                break;
         }
         students.remove(student);
+        databaseService.remove(student);
     }
 
     @Override
@@ -74,9 +75,9 @@ public class ArrayListFacultyDAO implements FacultyDAO {
         }
         faculties.remove(temp);
 
-        students = students.stream()
-                .filter(s -> !s.getFaculty().equals(name))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        temp.getGroups()
+                .forEach(g -> g.getStudents()
+                        .forEach(this::remove));
 
     }
 
@@ -84,18 +85,19 @@ public class ArrayListFacultyDAO implements FacultyDAO {
     public void add(Student student) {
         String groupNumber = student.group;
 
-        for (Faculty  f : faculties) {
-            for (Group group : f.groups) {
-                if (group.id.equals(groupNumber)) {
-                    group.getStudents().add(student);
-                    if (DatabaseService.isAvailable) {
-                        databaseService.add(student);
+        if (!contains(student)) {
+            for (Faculty f : faculties) {
+                for (Group group : f.groups) {
+                    if (group.id.equals(groupNumber)) {
+                        group.getStudents().add(student);
+                        if (DatabaseService.isAvailable) {
+                            databaseService.add(student);
+                        }
                     }
                 }
             }
+            students.add(student);
         }
-
-        students.add(student);
     }
 
     @Override
@@ -116,17 +118,22 @@ public class ArrayListFacultyDAO implements FacultyDAO {
 
     @Override
     public boolean contains(Student student) {
-        return false;
+        return students.contains(student);
     }
 
     @Override
     public boolean contains(Group group) {
+        for (Faculty faculty : faculties) {
+            if (faculty.getGroups().contains(group))
+                return true;
+        }
+
         return false;
     }
 
     @Override
     public boolean contains(Faculty faculty) {
-        return false;
+        return faculties.contains(faculty);
     }
 
     @Override

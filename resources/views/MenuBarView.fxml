@@ -10,10 +10,10 @@
          fx:controller="anrix.controller.MenuBarViewController">
 
     <Menu fx:id="fileMenu" text="File">
-        <MenuItem text="New" onAction="#fileMenuItemClicked"/>
+        <MenuItem text="New db" onAction="#fileMenuItemClicked"/>
         <SeparatorMenuItem onAction="#fileMenuItemClicked"/>
 
-        <MenuItem text="Open" onAction="#fileMenuItemClicked"/>
+        <MenuItem text="Import db" onAction="#fileMenuItemClicked"/>
         <MenuItem text="Save" onAction="#fileMenuItemClicked"/>
         <MenuItem text="Save as..." onAction="#fileMenuItemClicked"/>
 

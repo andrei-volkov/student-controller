@@ -23,10 +23,12 @@ public class DatabaseService {
 
     public static boolean isAvailable = true;
 
-    private static final String INSERT_COMAND = "INSERT INTO Registration ";
-    private static final String SELECT_COMAND = "SELECT name, surname, groupID, " +
+    private static final String INSERT_COMMAND = "INSERT INTO Registration ";
+    private static final String SELECT_COMMAND = "SELECT name, surname, groupID, " +
                                                 "faculty, mark, gender, hash " +
                                                 "FROM Registration";
+    private static final String REMOVE_COMMAND = "DELETE FROM Registration WHERE hash = ";
+
 
     private static volatile DatabaseService instance;
 
@@ -48,17 +50,20 @@ public class DatabaseService {
 
     public void initialize() throws SQLException {
         isAvailable = false;
+
         facultyDAO = ArrayListFacultyDAO.getInstance();
+
         initializeFaculties();
         initializeGroups();
         initializeStudents();
+
         isAvailable = true;
     }
 
     private void initializeFaculties() throws SQLException {
         ArrayList<String> faculties = new ArrayList<>();
 
-        ResultSet rs = statement.executeQuery(SELECT_COMAND);
+        ResultSet rs = statement.executeQuery(SELECT_COMMAND);
 
         while (true) {
             try {
@@ -79,7 +84,7 @@ public class DatabaseService {
     private void initializeGroups() throws SQLException {
         HashMap<String, String> map = new HashMap<>();
 
-        ResultSet rs = statement.executeQuery(SELECT_COMAND);
+        ResultSet rs = statement.executeQuery(SELECT_COMMAND);
 
         while (true) {
             try {
@@ -102,7 +107,7 @@ public class DatabaseService {
     }
 
     private void initializeStudents() throws SQLException {
-        ResultSet rs = statement.executeQuery(SELECT_COMAND);
+        ResultSet rs = statement.executeQuery(SELECT_COMMAND);
 
         while (true) {
             try {
@@ -130,19 +135,32 @@ public class DatabaseService {
 
     public void add(Student student) {
         try {
-            statement.executeUpdate(INSERT_COMAND + student.toString());
+            statement.executeUpdate(INSERT_COMMAND + student.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
+    public void remove(Student student) {
+        isAvailable = false;
+
+        try {
+            System.out.println(REMOVE_COMMAND + student.getId());
+            statement.executeUpdate(REMOVE_COMMAND + student.getId() + ";");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        isAvailable = true;
+    }
+
    public boolean contains(Student student) {
-       String comand = "SELECT name FROM Registration "
+       String command = "SELECT name FROM Registration "
                + "WHERE id = " + student.getId();
 
        try {
-           ResultSet rs = statement.executeQuery(comand);
+           ResultSet rs = statement.executeQuery(command);
            return rs.next();
        } catch (SQLException e) {
            return false;
@@ -170,5 +188,60 @@ public class DatabaseService {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void merge(String databaseUrl) throws SQLException {
+        String newDBUrl = "jdbc:h2:" + databaseUrl;
+
+        Connection newConnection = DriverManager.getConnection(newDBUrl);
+        Statement newStatement = newConnection.createStatement();
+        ResultSet rs = newStatement.executeQuery(SELECT_COMMAND);
+
+        while (rs.next()) {
+            String facultyName = rs.getString("faculty");
+            if (facultyDAO.contains(new Faculty(facultyName)))
+                facultyDAO.add(new Faculty(facultyName));
+        }
+
+        rs = newStatement.executeQuery(SELECT_COMMAND);
+
+        while (rs.next()) {
+            String groupName = rs.getString("groupID");
+            String facultyName = rs.getString("faculty");
+
+            Group group = new Group();
+            group.setId(groupName);
+
+            if (facultyDAO.contains(group))
+                facultyDAO.add(group, facultyName);
+        }
+
+        rs = newStatement.executeQuery(SELECT_COMMAND);
+
+        while (true) {
+            try {
+                if (!rs.next()) break;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            String name = rs.getString("name");
+            String surname = rs.getString("surname");
+
+            String groupName = rs.getString("groupID");
+            String facultyName = rs.getString("faculty");
+
+            Double mark = Double.parseDouble(rs.getString("mark"));
+            Student.GENDER gender = "MALE".equals(rs.getString("gender")) ?
+                    Student.GENDER.MALE : Student.GENDER.FEMALE;
+
+
+
+            Student student = new Student(name, surname,
+                    groupName, facultyName,
+                    mark, gender);
+
+            facultyDAO.add(student);
+        }
+
     }
 }

@@ -17,7 +17,7 @@
             onMouseClicked="#clearButtonClicked">
         <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
-                <Image requestedHeight="15" requestedWidth="15" url="@../images/clear_button.png"/>
+                <Image requestedHeight="15" requestedWidth="15" url="@../images/to_trash.png"/>
             </ImageView>
         </graphic>
     </Button>
@@ -43,7 +43,7 @@
             AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#newStudentButtonClicked">
         <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
-                <Image url="@../images/new_student_icon.png"/>
+                <Image url="@../images/add_student.png"/>
             </ImageView>
         </graphic>
     </Button>
@@ -53,7 +53,7 @@
             AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#newGroupButtonClicked">
         <graphic>
             <ImageView pickOnBounds="true" preserveRatio="true">
-                <Image url="@../images/new_group_icon.png"/>
+                <Image url="@../images/add_group.png"/>
             </ImageView>
         </graphic>
     </Button>
@@ -63,7 +63,7 @@
             AnchorPane.bottomAnchor="5" mnemonicParsing="false" onMouseClicked="#deleteGroupButtonClicked">
         <graphic>
             <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
-                <Image  url="@../images/remove_group_icon.png"/>
+                <Image  url="@../images/remove_group.png"/>
             </ImageView>
         </graphic>
     </Button>

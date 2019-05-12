@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:id="content"
+           fx:controller="anrix.controller.NewDatabaseViewController"
+           prefHeight="224.0" prefWidth="500.0">
+
+    <Label StackPane.alignment="CENTER" fx:id="label" text="Drop database here" />
+
+</StackPane>
