@@ -11,8 +11,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 
 public class MenuBarViewController {
@@ -59,5 +62,13 @@ public class MenuBarViewController {
                 break;
         }
 
+    }
+
+    public void aboutDeveloperItemClicked() {
+       try {
+           Desktop.getDesktop().browse(new URI("https://github.com/CaptainMoZzilla"));
+       } catch (IOException | URISyntaxException e1) {
+           e1.printStackTrace();
+       }
     }
 }

@@ -17,8 +17,8 @@
         <MenuItem text="Exit" onAction="#fileMenuItemClicked"/>
     </Menu>
 
-    <Menu fx:id="optionsMenu" text="Options">
-        <MenuItem text="In develop"/>
+    <Menu text="Info">
+        <MenuItem text="About developer" onAction="#aboutDeveloperItemClicked"/>
     </Menu>
 
 </MenuBar>
