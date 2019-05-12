@@ -5,17 +5,25 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.sql.SQLException;
 
 public class NewDatabaseViewController {
+    @FXML
+    private Button openButton;
+
     @FXML
     private Label label;
 
@@ -34,6 +42,22 @@ public class NewDatabaseViewController {
         content.setOnDragOver((EventHandler<Event>) event -> mouseDragOver((DragEvent) event));
 
         content.setOnDragDropped((EventHandler<Event>) event -> mouseDragDropped((DragEvent) event));
+
+        openButton.setOnMouseClicked(event -> {
+            final FileChooser fileChooser = new FileChooser();
+
+            Stage primaryStage = (Stage) MainViewController.mainWindow.getScene().getWindow();
+            fileChooser
+                    .getExtensionFilters()
+                    .add(new FileChooser.ExtensionFilter("Db", "*.mv.db"));
+
+            File selectedFile = fileChooser.showOpenDialog(primaryStage);
+
+            if (selectedFile.getAbsolutePath() != null) {
+                openDatabase(selectedFile.getAbsolutePath());
+            }
+        }
+        );
 
     }
 
@@ -68,23 +92,27 @@ public class NewDatabaseViewController {
 
         if (db.hasFiles() && isFileCorrect(db.getFiles().get(0).getName())) {
             File file = db.getFiles().get(0);
+            openDatabase(file.getAbsolutePath());
+        }
+    }
 
-            int fileNameLength = file.getAbsolutePath().length() - 6;
+    private void openDatabase(String absolutePath) {
 
-            try {
-                databaseService.merge(file.getAbsolutePath().substring(0, fileNameLength));
+        int fileNameLength = absolutePath.length() - 6;
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Done");
+        try {
+            databaseService.merge(absolutePath.substring(0, fileNameLength));
 
-                alert.setTitle("Success");
-                alert.setHeaderText("Done");
-                alert.setContentText("Databases merged.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Done");
 
-                alert.showAndWait();
+            alert.setTitle("Success");
+            alert.setHeaderText("Done");
+            alert.setContentText("Databases merged.");
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            alert.showAndWait();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

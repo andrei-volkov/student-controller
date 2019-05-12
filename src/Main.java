@@ -11,8 +11,6 @@ public class Main extends Application {
         Application.launch(args);
     }
 
-    //TODO remove
-
     @Override
     public void start(Stage stage) throws Exception {
         DatabaseService.getInstance().initialize();

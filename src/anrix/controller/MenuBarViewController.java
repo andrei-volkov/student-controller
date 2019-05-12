@@ -1,5 +1,6 @@
 package anrix.controller;
 
+import anrix.model.service.DatabaseService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,12 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 
 public class MenuBarViewController {
@@ -44,6 +45,8 @@ public class MenuBarViewController {
                 }
                 break;
             case "Save":
+
+
                 break;
             case "Save as...":
                 break;

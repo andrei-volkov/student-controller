@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.control.Button?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:id="content"
@@ -11,4 +12,5 @@
 
     <Label StackPane.alignment="CENTER" fx:id="label" text="Drop database here" />
 
+    <Button text="Open" fx:id="openButton" StackPane.alignment="BOTTOM_CENTER"/>
 </StackPane>

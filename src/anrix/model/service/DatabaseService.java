@@ -5,12 +5,15 @@ import anrix.model.bean.Group;
 import anrix.model.bean.Student;
 import anrix.model.dao.ArrayListFacultyDAO;
 import anrix.model.dao.FacultyDAO;
+import javafx.scene.control.TreeItem;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import static anrix.controller.MainViewController.mainGroupsTree;
 
 public class DatabaseService {
 
@@ -189,8 +192,10 @@ public class DatabaseService {
 
         while (rs.next()) {
             String facultyName = rs.getString("faculty");
-            if (facultyDAO.contains(new Faculty(facultyName)))
+            if (!facultyDAO.contains(new Faculty(facultyName))) {
+                mainGroupsTree.getRoot().getChildren().add(new TreeItem<>(facultyName));
                 facultyDAO.add(new Faculty(facultyName));
+            }
         }
 
         rs = newStatement.executeQuery(SELECT_COMMAND);
@@ -202,8 +207,16 @@ public class DatabaseService {
             Group group = new Group();
             group.setId(groupName);
 
-            if (facultyDAO.contains(group))
+            if (!facultyDAO.contains(group)) {
                 facultyDAO.add(group, facultyName);
+
+                for (TreeItem<String> item : mainGroupsTree.getRoot().getChildren()) {
+                    if (facultyName.equals(item.getValue())) {
+                        item.getChildren().add(new TreeItem<>(group.getId()));
+                    }
+                }
+            }
+
         }
 
         rs = newStatement.executeQuery(SELECT_COMMAND);
