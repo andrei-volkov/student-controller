@@ -16,12 +16,6 @@ public class ChartViewController {
     @FXML
     private LineChart<String, Double> lineChart;
 
-    @FXML
-    private final CategoryAxis xAxis = new CategoryAxis();
-
-    @FXML
-    private final NumberAxis yAxis = new NumberAxis();
-
     private XYChart.Series series;
 
     private ChartService chartService = ChartService.getInstance();

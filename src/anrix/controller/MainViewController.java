@@ -26,31 +26,13 @@ public class MainViewController {
     public FlowPane bottomBar;
 
     @FXML
-    private AnchorPane toolBar;
-
-    @FXML
     private TreeView groupsTree;
-
-    @FXML
-    private JFXTextField fieldSearch;
 
     @FXML
     private BorderPane borderPane;
 
     @FXML
-    private javafx.scene.control.Menu fileMenu;
-
-    @FXML
-    private javafx.scene.control.Menu optionsMenu;
-
-    @FXML
     private TabPane tabPane;
-
-    @FXML
-    private Button edit_button;
-
-    @FXML
-    private ListView<Student> studentsList;
 
     public static final int RIGHT_WINDOW_WIDTH = 250;
 
